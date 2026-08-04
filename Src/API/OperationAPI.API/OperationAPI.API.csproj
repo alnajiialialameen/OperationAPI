@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\OperationAPI.Application\OperationAPI.Application.csproj" />
+    <ProjectReference Include="..\..\Core\OperationAPI.Domain\OperationAPI.Domain.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\OperationAPI.Identity\OperationAPI.Identity.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\OperationAPI.Infrastructure\OperationAPI.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\OperationAPI.Presistence\OperationAPI.Presistence.csproj" />
+  </ItemGroup>
+
+</Project>
