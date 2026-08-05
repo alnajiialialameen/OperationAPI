@@ -15,6 +15,7 @@ namespace OperationAPI.Presistence.MapperConfig
         {
             CreateMap<AircraftSizeDomain, AircraftSize>().ReverseMap();
             CreateMap<AircraftRegistrationDomain, AircraftRegistration>().ReverseMap();
+            CreateMap<AirLineAgentDomain, AirLineAgent>().ReverseMap();
 
         }
     }

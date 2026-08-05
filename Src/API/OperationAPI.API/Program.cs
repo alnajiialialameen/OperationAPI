@@ -19,7 +19,7 @@ builder.Services.AddMediatR(cfg =>
 builder.Services.RegisterPersistenceServices(builder.Configuration);
 builder.Services.AddScoped<IAircraftSizeService, AircraftSizeRepository>();
 builder.Services.AddScoped<IAircraftRegistration, AircraftRegisterationRepository>();
-
+builder.Services.AddScoped<IAirLineAgentService, AirLineAgentRepository >();
 
 builder.Services.AddAutoMapper(typeof(MapperConfig).Assembly);
 
