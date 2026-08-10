@@ -1,5 +1,6 @@
 using OperationAPI.API.MiddelWares;
 using OperationAPI.Application.Contracts.Services;
+using OperationAPI.Identity;
 using OperationAPI.Presistence.MapperConfig;
 using OperationAPI.Presistence.Repositories;
 using System.Reflection;
@@ -15,8 +16,10 @@ builder.Services.AddMediatR(cfg =>
 });
 
 
-
+builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.RegisterPersistenceServices(builder.Configuration);
+
+builder.Services.AddScoped<IAirlineAgentService, AirlineAgentRepository>();
 builder.Services.AddScoped<IAircraftSizeService, AircraftSizeRepository>();
 builder.Services.AddScoped<IAircraftRegistrationService, AircraftRegisterationRepository>();
 builder.Services.AddScoped<IWorkOnService, WorkOnRepository>();
