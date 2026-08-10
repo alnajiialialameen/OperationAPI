@@ -109,7 +109,7 @@ public partial class Entities : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=DESKTOP-2NIRS86\\NAJI;Database=AirPortERP;Trusted_Connection=True;TrustServerCertificate=True;");
+        => optionsBuilder.UseSqlServer("Server=DESKTOP-2NIRS86\\NAJI;Database=AirportERP;Trusted_Connection=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -181,6 +181,7 @@ public partial class Entities : DbContext
                 .HasMaxLength(128)
                 .UseCollation("SQL_Latin1_General_CP1_CI_AS");
             entity.Property(e => e.UpdatingDate).HasColumnType("datetime");
+            entity.Property(e => e.UserId).HasMaxLength(450);
 
             entity.HasOne(d => d.AirLine).WithMany(p => p.AirLineAgents)
                 .HasForeignKey(d => d.AirLineId)
@@ -326,14 +327,6 @@ public partial class Entities : DbContext
             entity.HasOne(d => d.AireCraftReg).WithMany(p => p.AireCraftStyIns)
                 .HasForeignKey(d => d.AireCraftRegId)
                 .HasConstraintName("FK_AireCraftStyIn_AircraftRegistration");
-
-            entity.HasOne(d => d.AireLineAgentId1Navigation).WithMany(p => p.AireCraftStyInAireLineAgentId1Navigations)
-                .HasForeignKey(d => d.AireLineAgentId1)
-                .HasConstraintName("FK_AireCraftStyIn_AirLineAgent");
-
-            entity.HasOne(d => d.AireLineAgentId2Navigation).WithMany(p => p.AireCraftStyInAireLineAgentId2Navigations)
-                .HasForeignKey(d => d.AireLineAgentId2)
-                .HasConstraintName("FK_AireCraftStyIn_AirLineAgent1");
 
             entity.HasOne(d => d.AireLine).WithMany(p => p.AireCraftStyIns)
                 .HasForeignKey(d => d.AireLineId)

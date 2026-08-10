@@ -21,6 +21,8 @@ public partial class AirLineAgent
 
     public int? AirLineId { get; set; }
 
+    public string? UserId { get; set; }
+
     public bool IsActive { get; set; }
 
     public string? CreatedBy { get; set; }
@@ -32,10 +34,6 @@ public partial class AirLineAgent
     public DateTime? UpdatingDate { get; set; }
 
     public virtual AirLine? AirLine { get; set; }
-
-    public virtual ICollection<AireCraftStyIn> AireCraftStyInAireLineAgentId1Navigations { get; set; } = new List<AireCraftStyIn>();
-
-    public virtual ICollection<AireCraftStyIn> AireCraftStyInAireLineAgentId2Navigations { get; set; } = new List<AireCraftStyIn>();
 
     public virtual ICollection<OfficerDatum> OfficerData { get; set; } = new List<OfficerDatum>();
 }

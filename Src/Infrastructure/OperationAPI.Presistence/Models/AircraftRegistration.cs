@@ -1,5 +1,4 @@
-﻿using OperationAPI.Presistence.PartialModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace OperationAPI.Presistence.Models;

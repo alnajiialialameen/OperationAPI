@@ -34,8 +34,4 @@ public partial class AireCraftStyIn
     public virtual ICollection<AireCraftStyInFee> AireCraftStyInFees { get; set; } = new List<AireCraftStyInFee>();
 
     public virtual AirLine? AireLine { get; set; }
-
-    public virtual AirLineAgent? AireLineAgentId1Navigation { get; set; }
-
-    public virtual AirLineAgent? AireLineAgentId2Navigation { get; set; }
 }
