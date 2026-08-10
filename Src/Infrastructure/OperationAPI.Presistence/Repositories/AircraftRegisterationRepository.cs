@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace OperationAPI.Presistence.Repositories
 {
-  public  class AircraftRegisterationRepository : GenericRepository<AircraftRegistrationDomain, AircraftRegistration>, IAircraftRegistration
+  public class AircraftRegisterationRepository : GenericRepository<AircraftRegistrationDomain, AircraftRegistration>, IAircraftRegistrationService
     {
         public AircraftRegisterationRepository(Entities context, IMapper mapper) : base(context, mapper)
         {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OperationAPI.Application.Contracts.Services
 {
-   public interface IAircraftRegistration : IGenericService<AircraftRegistrationDomain>
+   public interface IAircraftRegistrationService : IGenericService<AircraftRegistrationDomain>
     {
         Task<bool> IsUniqueObject(AircraftRegistrationDomain model);
     }

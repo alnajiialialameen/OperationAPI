@@ -15,9 +15,9 @@ namespace OperationAPI.Application.Features.AircraftRegisteration.Command.Update
 
     public class UpdateAircraftRegistrationValidation : AbstractValidator<UpdateAircraftRegistrationCommand>
     {
-        private readonly IAircraftRegistration service;
+        private readonly IAircraftRegistrationService service;
 
-        public UpdateAircraftRegistrationValidation(IAircraftRegistration service)
+        public UpdateAircraftRegistrationValidation(IAircraftRegistrationService service)
         {
             RuleFor(q => q.model.Registration)
                 .NotEmpty()

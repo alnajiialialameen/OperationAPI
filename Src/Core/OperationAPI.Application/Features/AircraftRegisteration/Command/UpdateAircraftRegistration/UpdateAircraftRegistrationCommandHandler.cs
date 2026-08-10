@@ -13,8 +13,8 @@ namespace OperationAPI.Application.Features.AircraftRegisteration.Command.Update
 {
    public class UpdateAircraftRegistrationCommandHandler :IRequestHandler<UpdateAircraftRegistrationCommand,AircraftRegistrationDomain>
     {
-        private readonly IAircraftRegistration service;
-       public UpdateAircraftRegistrationCommandHandler(IAircraftRegistration service) 
+        private readonly IAircraftRegistrationService service;
+       public UpdateAircraftRegistrationCommandHandler(IAircraftRegistrationService service) 
         {
            this.service = service;
         }
