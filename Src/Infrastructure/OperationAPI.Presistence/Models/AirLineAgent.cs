@@ -23,6 +23,8 @@ public partial class AirLineAgent
 
     public bool IsActive { get; set; }
 
+    public string? UserId { get; set; }
+
     public string? CreatedBy { get; set; }
 
     public DateTime? CreationDate { get; set; }
@@ -32,6 +34,8 @@ public partial class AirLineAgent
     public DateTime? UpdatingDate { get; set; }
 
     public virtual AirLine? AirLine { get; set; }
+
+    //public virtual AspNetUsers1? User { get; set; }
 
     public virtual ICollection<AireCraftStyIn> AireCraftStyInAireLineAgentId1Navigations { get; set; } = new List<AireCraftStyIn>();
 
