@@ -13,9 +13,9 @@ namespace OperationAPI.Application.Features.AircraftRegisteration.Command.Create
 {
    public class CreateAircraftRegistrationCommandHandler : IRequestHandler<CreateAircraftRegistrationCommand,AircraftRegistrationDomain>
     {
-        private readonly IAircraftRegistration service;
+        private readonly IAircraftRegistrationService service;
 
-        public CreateAircraftRegistrationCommandHandler(IAircraftRegistration service)
+        public CreateAircraftRegistrationCommandHandler(IAircraftRegistrationService service)
         {
             this.service = service;
         }

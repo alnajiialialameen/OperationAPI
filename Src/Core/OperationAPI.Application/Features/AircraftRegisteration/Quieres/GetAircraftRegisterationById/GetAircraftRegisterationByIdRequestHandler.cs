@@ -11,9 +11,9 @@ namespace OperationAPI.Application.Features.AircraftRegisteration.Quieres.GetAir
 {
     class GetAircraftRegisterationByIdRequestHandler : IRequestHandler<GetAircraftRegisterationByIdRequest, AircraftRegistrationDomain>
     {
-        private readonly IAircraftRegistration service;
+        private readonly IAircraftRegistrationService service;
 
-        public GetAircraftRegisterationByIdRequestHandler(IAircraftRegistration service) 
+        public GetAircraftRegisterationByIdRequestHandler(IAircraftRegistrationService service) 
         {
             this.service = service;
         }

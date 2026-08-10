@@ -21,7 +21,8 @@ builder.Services.RegisterPersistenceServices(builder.Configuration);
 
 builder.Services.AddScoped<IAirlineAgentService, AirlineAgentRepository>();
 builder.Services.AddScoped<IAircraftSizeService, AircraftSizeRepository>();
-builder.Services.AddScoped<IAircraftRegistration, AircraftRegisterationRepository>();
+builder.Services.AddScoped<IAircraftRegistrationService, AircraftRegisterationRepository>();
+builder.Services.AddScoped<IWorkOnService, WorkOnRepository>();
 
 
 builder.Services.AddAutoMapper(typeof(MapperConfig).Assembly);
@@ -33,14 +34,24 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+
+// CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 
 
@@ -50,7 +61,10 @@ if (app.Environment.IsDevelopment())
 app.UseMiddleware<ExceptionMiddleWare>();
 app.UseMiddleware<SuccessResponseMiddleWare>();
 
-app.UseHttpsRedirection();
+
+app.UseRouting();
+app.UseCors("AllowAll");
+//app.UseHttpsRedirection();
 
 
 

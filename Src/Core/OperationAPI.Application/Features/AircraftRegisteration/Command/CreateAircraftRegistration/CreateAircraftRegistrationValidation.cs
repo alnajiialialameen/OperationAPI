@@ -12,9 +12,9 @@ namespace OperationAPI.Application.Features.AircraftRegisteration.Command.Create
  
     public class CreateAircraftRegistrationValidation : AbstractValidator<CreateAircraftRegistrationCommand>
     {
-        private readonly IAircraftRegistration service;
+        private readonly IAircraftRegistrationService service;
 
-        public CreateAircraftRegistrationValidation(IAircraftRegistration service)
+        public CreateAircraftRegistrationValidation(IAircraftRegistrationService service)
         {
             RuleFor(q => q.model.Registration)
                 .NotEmpty().WithMessage("Registration Is Required");

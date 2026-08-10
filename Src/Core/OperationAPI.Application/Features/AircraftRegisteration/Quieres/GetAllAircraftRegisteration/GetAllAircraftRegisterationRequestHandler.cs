@@ -12,8 +12,8 @@ namespace OperationAPI.Application.Features.AircraftRegisteration.Quieres.GetAll
 {
    public class GetAllAircraftRegisterationRequestHandler :IRequestHandler<GetAllAircraftRegisterationRequest, List<AircraftRegistrationDomain>>
     {
-        private readonly IAircraftRegistration service;
-        public GetAllAircraftRegisterationRequestHandler(IAircraftRegistration service)
+        private readonly IAircraftRegistrationService service;
+        public GetAllAircraftRegisterationRequestHandler(IAircraftRegistrationService service)
         {
             this.service = service;
         }

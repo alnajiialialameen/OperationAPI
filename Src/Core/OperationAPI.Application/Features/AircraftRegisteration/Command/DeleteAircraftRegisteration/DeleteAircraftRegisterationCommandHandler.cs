@@ -11,10 +11,10 @@ namespace OperationAPI.Application.Features.AircraftRegisteration.Command.Delete
 {
    public class DeleteAircraftRegisterationCommandHandler : IRequestHandler<DeleteAircraftRegisterationCommand,bool>
     {
-        private readonly IAircraftRegistration service;
+        private readonly IAircraftRegistrationService service;
 
 
-        public DeleteAircraftRegisterationCommandHandler(IAircraftRegistration service) 
+        public DeleteAircraftRegisterationCommandHandler(IAircraftRegistrationService service) 
         {
             this.service = service;
         }
