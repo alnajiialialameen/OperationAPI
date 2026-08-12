@@ -14,6 +14,9 @@ namespace OperationAPI.Presistence.MapperConfig
             CreateMap<CompanyInfo, CompanyInfoDomain>().ReverseMap();
             CreateMap<AirLineAgentDomain, AirLineAgent>().ReverseMap();
 
+            CreateMap<CountryDomain, Country>().ReverseMap();
+            CreateMap<AircraftTypeDomain,AircraftType>().ReverseMap();
+
         }
     }
 }

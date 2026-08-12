@@ -23,6 +23,8 @@ builder.Services.AddScoped<IAirlineAgentService, AirlineAgentRepository>();
 builder.Services.AddScoped<IAircraftSizeService, AircraftSizeRepository>();
 builder.Services.AddScoped<IAircraftRegistrationService, AircraftRegisterationRepository>();
 builder.Services.AddScoped<IWorkOnService, WorkOnRepository>();
+builder.Services.AddScoped<IAircraftTypeService, AircraftTypeRepository>();
+builder.Services.AddScoped<ICountryService, CountryRepository>();
 
 
 builder.Services.AddAutoMapper(typeof(MapperConfig).Assembly);
