@@ -10,12 +10,17 @@ namespace OperationAPI.Presistence.MapperConfig
         {
             CreateMap<AircraftSizeDomain, AircraftSize>().ReverseMap();
             CreateMap<AircraftRegistrationDomain, AircraftRegistration>().ReverseMap();
+<<<<<<< HEAD
             CreateMap<WorkOn, WorkOnDomain>().ReverseMap();
             CreateMap<CompanyInfo, CompanyInfoDomain>().ReverseMap();
             CreateMap<AirLineAgentDomain, AirLineAgent>().ReverseMap();
 
             CreateMap<CountryDomain, Country>().ReverseMap();
             CreateMap<AircraftTypeDomain,AircraftType>().ReverseMap();
+=======
+            CreateMap<AirLineAgentDomain, AirLineAgent>().ReverseMap();
+            CreateMap<HandlingAgentsCompanyDomain, HandlingAgentsCompany>().ReverseMap();
+>>>>>>> b860feb (companyInfo and handlingagent)
 
         }
     }
