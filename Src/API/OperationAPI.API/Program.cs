@@ -26,17 +26,16 @@ builder.Services.RegisterPersistenceServices(builder.Configuration);
 
 builder.Services.AddScoped<IAirlineAgentService, AirlineAgentRepository>();
 builder.Services.AddScoped<IAircraftSizeService, AircraftSizeRepository>();
-<<<<<<< HEAD
 builder.Services.AddScoped<IAircraftRegistrationService, AircraftRegisterationRepository>();
 builder.Services.AddScoped<IWorkOnService, WorkOnRepository>();
 builder.Services.AddScoped<IAircraftTypeService, AircraftTypeRepository>();
 builder.Services.AddScoped<ICountryService, CountryRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-=======
-builder.Services.AddScoped<IAircraftRegistration, AircraftRegisterationRepository>();
-builder.Services.AddScoped<IAirLineAgentService, AirLineAgentRepository >();
+builder.Services.AddScoped<IAirlineAgentService, AirlineAgentRepository >();
 builder.Services.AddScoped<IHandlingAgentsCompanyService, HandlingAgentsCompanyRepository >();
->>>>>>> b860feb (companyInfo and handlingagent)
+
+builder.Services.AddScoped<ICompanyInfoSercice, CompanyInfoRepository>();
 
 builder.Services.AddAutoMapper(typeof(MapperConfig).Assembly);
 
