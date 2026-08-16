@@ -9,6 +9,7 @@ namespace OperationAPI.Application.Contracts.Services
 {
   public interface IAircraftSizeService  :IGenericService<AircraftSizeDomain>
     {
-     
+        Task<bool> IsUniqueObject(AircraftSizeDomain model);
+
     }
 }

@@ -1,8 +1,6 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using OperationAPI.Application.Contracts.Services;
-using OperationAPI.Domain.Common;
 using OperationAPI.Identity.DBContext;
 using OperationAPI.Presistence.Models;
 
@@ -31,13 +29,19 @@ namespace OperationAPI.Presistence.Services
         {
             await context.SaveChangesAsync();
             await identityContext.SaveChangesAsync();
-
-            await transaction.CommitAsync();
+            
+            if (transaction != null)
+            {
+                await transaction.CommitAsync();
+            }
         }
 
         public async Task RollbackAsync()
         {
-            await transaction.RollbackAsync();
+            if (transaction != null)
+            {
+                await transaction.RollbackAsync();
+            }
         }
 
         public async Task<int> SaveChangesAsync()

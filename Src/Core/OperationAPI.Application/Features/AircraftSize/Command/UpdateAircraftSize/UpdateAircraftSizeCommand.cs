@@ -6,14 +6,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OperationAPI.Application.Features.AircraftSize.Command.CreateAircraftSize
+namespace OperationAPI.Application.Features.AircraftSize.Command.UpdateAircraftSize
 {
-    public class CreateAircraftSizeCommand : IRequest<AircraftSizeDomain>
+   
+
+    public class UpdateAircraftSizeCommand : IRequest<AircraftSizeDomain>
     {
-        public CreateAircraftSizeCommand(AircraftSizeDomain model)
+        public UpdateAircraftSizeCommand(AircraftSizeDomain model)
         {
             this.model = model;
         }
+
         public AircraftSizeDomain model { get; set; }
     }
+
+
 }

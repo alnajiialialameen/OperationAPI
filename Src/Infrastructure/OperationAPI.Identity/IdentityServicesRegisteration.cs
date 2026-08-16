@@ -19,8 +19,7 @@ namespace OperationAPI.Identity
         {
             services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
 
-            services.AddDbContext<MyIdentityDBContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            // services.AddDbContext<MyIdentityDBContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options=> options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<MyIdentityDBContext>()

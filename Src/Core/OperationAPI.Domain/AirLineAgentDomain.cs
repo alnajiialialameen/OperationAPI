@@ -4,6 +4,7 @@ namespace OperationAPI.Domain
 {
     public class AirLineAgentDomain : BaseDomain
     {
+     
         public string? NameAr { get; set; }
 
         public string? NameAn { get; set; }
@@ -18,15 +19,9 @@ namespace OperationAPI.Domain
 
         public int? AirLineId { get; set; }
 
+        public string? UserId { get; set; }
+
         public bool IsActive { get; set; }
-
-        public string? CreatedBy { get; set; }
-
-        public DateTime? CreationDate { get; set; }
-
-        public string? UpdatedBy { get; set; }
-
-        public DateTime? UpdatingDate { get; set; }
 
         //public virtual AirLine? AirLine { get; set; }
 

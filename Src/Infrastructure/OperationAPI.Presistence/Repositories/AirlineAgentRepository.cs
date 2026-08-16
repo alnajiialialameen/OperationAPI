@@ -23,5 +23,10 @@ namespace OperationAPI.Presistence.Repositories
 
             return new AirLineAgentDomain();
         }
+
+        public async Task<bool> IsUniqueObject(AirLineAgentDomain model)
+        {
+            return await Context.AirLineAgents.AnyAsync(x => x.Id != model.Id && x.NameAn == model.NameAn);
+        }
     }
 }

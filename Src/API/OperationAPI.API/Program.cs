@@ -1,8 +1,14 @@
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using OperationAPI.API.MiddelWares;
 using OperationAPI.Application.Contracts.Services;
 using OperationAPI.Identity;
+using OperationAPI.Identity.DBContext;
+using OperationAPI.Presistence;
 using OperationAPI.Presistence.MapperConfig;
+using OperationAPI.Presistence.Models;
 using OperationAPI.Presistence.Repositories;
+using OperationAPI.Presistence.Services;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,7 +21,6 @@ builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(Assembly.Load("OperationAPI.Application"));
 });
 
-
 builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.RegisterPersistenceServices(builder.Configuration);
 
@@ -23,7 +28,7 @@ builder.Services.AddScoped<IAirlineAgentService, AirlineAgentRepository>();
 builder.Services.AddScoped<IAircraftSizeService, AircraftSizeRepository>();
 builder.Services.AddScoped<IAircraftRegistrationService, AircraftRegisterationRepository>();
 builder.Services.AddScoped<IWorkOnService, WorkOnRepository>();
-
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddAutoMapper(typeof(MapperConfig).Assembly);
 

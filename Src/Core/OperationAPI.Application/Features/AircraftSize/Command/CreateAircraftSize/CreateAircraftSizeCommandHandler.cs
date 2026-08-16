@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OperationAPI.Application.Features.AircraftSize.Command.CreateAircraftSize
 {
-    class CreateAircraftSizeCommandHandler : IRequestHandler<CreateAircraftSizeCommand , AircraftSizeDomain>
+   public class CreateAircraftSizeCommandHandler : IRequestHandler<CreateAircraftSizeCommand , AircraftSizeDomain>
     {
         private readonly IAircraftSizeService service;
         public CreateAircraftSizeCommandHandler(IAircraftSizeService service)
@@ -19,7 +19,7 @@ namespace OperationAPI.Application.Features.AircraftSize.Command.CreateAircraftS
 
         public async Task<AircraftSizeDomain> Handle(CreateAircraftSizeCommand request, CancellationToken cancellationToken)
         {
-            var obj = await service.CreateAsync(request.modal);
+            var obj = await service.CreateAsync(request.model);
             return obj;
         }
     }

@@ -1,9 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using OperationAPI.Application.Features.AircraftRegisteration.Command.CreateAircraftRegistration;
-using OperationAPI.Application.Features.AircraftRegisteration.Command.DeleteAircraftRegisteration;
-using OperationAPI.Application.Features.AircraftRegisteration.Command.UpdateAircraftRegistration;
-using OperationAPI.Application.Features.AircraftRegisteration.Quieres.GetAircraftRegisterationById;
+
 using OperationAPI.Application.Features.WorkOn.Command.CreateWorkOn;
 using OperationAPI.Application.Features.WorkOn.Command.DeleteWorkOn;
 using OperationAPI.Application.Features.WorkOn.Command.UpdateWorkOn;

@@ -1,7 +1,11 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OperationAPI.Application.Features.AircraftRegisteration.Command.DeleteAircraftRegisteration;
+using OperationAPI.Application.Features.AircraftRegisteration.Command.UpdateAircraftRegistration;
 using OperationAPI.Application.Features.AircraftSize.Command.CreateAircraftSize;
+using OperationAPI.Application.Features.AircraftSize.Command.DeleteAircraftSize;
+using OperationAPI.Application.Features.AircraftSize.Command.UpdateAircraftSize;
 using OperationAPI.Application.Features.AircraftSize.Quieres.GetAllAircraftSize;
 using OperationAPI.Application.Features.AircraftSize.Quieres.GetByIdAircraftSize;
 using OperationAPI.Domain;
@@ -40,6 +44,24 @@ namespace OperationAPI.API.Controllers
         public async Task<IActionResult> post(AircraftSizeDomain modal)
         {
             var data = await mediator.Send(new CreateAircraftSizeCommand(modal));
+            return Ok(data);
+        }
+
+
+        [HttpPut]
+        public async Task<IActionResult> Put(AircraftSizeDomain model)
+        {
+            var data = await mediator.Send(new UpdateAircraftSizeCommand(model));
+
+            return Ok(data);
+        }
+
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var data = await mediator.Send(new DeleteAircraftSizeCommand(id));
+
             return Ok(data);
         }
     }
