@@ -6,13 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OperationAPI.Application.Features.AircraftSize.Quieres.GetByIdAircraftSize
+namespace OperationAPI.Application.Features.CompanyInfo.Command.DeleteCompanyInfo
 {
-    public record GetByIdAircraftSizeRequest(int Id) : IRequest<AircraftSizeDomain>
+    public  record DeleteCompanyInfoCommand(int Id) : IRequest<bool>
     {
-
     }
 }
-
-
-

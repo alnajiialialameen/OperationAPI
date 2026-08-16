@@ -6,13 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OperationAPI.Application.Features.AircraftSize.Quieres.GetByIdAircraftSize
+namespace OperationAPI.Application.Features.AircraftType.Quieres.GetAllAircraftType
 {
-    public record GetByIdAircraftSizeRequest(int Id) : IRequest<AircraftSizeDomain>
+    public record GetAllAircraftTypeRequest :IRequest<List<AircraftTypeDomain>>
     {
-
+       
     }
 }
-
-
-

@@ -6,13 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OperationAPI.Application.Features.AircraftSize.Quieres.GetByIdAircraftSize
+namespace OperationAPI.Application.Features.Country.Quieres.GetByIdCountry
 {
-    public record GetByIdAircraftSizeRequest(int Id) : IRequest<AircraftSizeDomain>
+    public record GetByIdCountryRequest(int id) :IRequest<CountryDomain>
     {
-
     }
 }
-
-
-
