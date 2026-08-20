@@ -23,7 +23,7 @@ namespace OperationAPI.Domain
 
         public bool IsActive { get; set; }
 
-        //public virtual AirLine? AirLine { get; set; }
+        public AirLineDomain? AirLine { get; set; }
 
         //public virtual ICollection<AireCraftStyIn> AireCraftStyInAireLineAgentId1Navigations { get; set; } = new List<AireCraftStyIn>();
 

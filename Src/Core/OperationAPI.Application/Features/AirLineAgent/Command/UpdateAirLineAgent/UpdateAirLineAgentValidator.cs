@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using OperationAPI.Application.Contracts.Services;
-using OperationAPI.Application.Features.AircraftRegisteration.Command.CreateAircraftRegistration;
+using OperationAPI.Application.Features.AirLineAgent.Command.CreateAirLineAgent;
 using OperationAPI.Domain;
 using System;
 using System.Collections.Generic;
@@ -8,16 +8,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OperationAPI.Application.Features.AirLineAgent.Command
+namespace OperationAPI.Application.Features.AirLineAgent.Command.UpdateAirLineAgent
 {
-  
+   
 
-
-    public class AirlineAgentValidator : AbstractValidator<AirLineAgentCommand>
+    public class UpdateAirLineAgentValidator : AbstractValidator<UpdateAirLineAgentCommand>
     {
         private readonly IAirlineAgentService service;
 
-        public AirlineAgentValidator(IAirlineAgentService service)
+        public UpdateAirLineAgentValidator(IAirlineAgentService service)
         {
             RuleFor(q => q.model.AirLineId)
                 .NotEmpty().WithMessage("AirLineId Is Required");

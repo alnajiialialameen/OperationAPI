@@ -6,13 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OperationAPI.Application.Features.AirLineAgent.Command
+namespace OperationAPI.Application.Features.AirLineAgent.Command.UpdateAirLineAgent
 {
-   public class AirLineAgentCommand : IRequest<AirLineAgentDomain>
+   
+
+    public class UpdateAirLineAgentCommand : IRequest<AirLineAgentDomain>
     {
         public AirLineAgentDomain model { get; set; }
 
-        public AirLineAgentCommand(AirLineAgentDomain model)
+        public UpdateAirLineAgentCommand(AirLineAgentDomain model)
         {
             this.model = model;
         }

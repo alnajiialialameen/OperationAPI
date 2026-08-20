@@ -20,5 +20,8 @@ namespace OperationAPI.Domain
         public string? UpdatedBy { get; set; }
 
         public DateTime? UpdatingDate { get; set; }
+
+        public AircraftSizeDomain? Size { get; set; }
+
     }
 }
