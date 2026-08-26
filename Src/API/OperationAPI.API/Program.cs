@@ -37,6 +37,12 @@ builder.Services.AddScoped<IHandlingAgentsCompanyService, HandlingAgentsCompanyR
 
 builder.Services.AddScoped<ICompanyInfoSercice, CompanyInfoRepository>();
 
+builder.Services.AddScoped<ITowerDataService, TowerDataRepository>();
+builder.Services.AddScoped<IOfficerDataService, OfficerDataRepository>();
+
+
+
+
 builder.Services.AddAutoMapper(typeof(MapperConfig).Assembly);
 
 

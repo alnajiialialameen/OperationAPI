@@ -49,6 +49,11 @@ namespace OperationAPI.Presistence.MapperConfig
             CreateMap<AirLineAgent, AirLineAgentDomain>()
               .ForMember(dest => dest.AirLine, opt => opt.MapFrom(src => src.AirLine));
 
+
+
+            CreateMap<TowerDatum, TowerDataDomain>().ReverseMap();
+            CreateMap<OfficerDatum, OfficerDataDomain>().ReverseMap();
+
         }
     }
 }

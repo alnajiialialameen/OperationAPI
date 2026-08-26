@@ -22,6 +22,8 @@ namespace OperationAPI.Application.Features.AircraftRegisteration.Command.Create
 
         public async Task<AircraftRegistrationDomain> Handle(CreateAircraftRegistrationCommand command, CancellationToken cancellationToken)
         {
+
+            if (command.model.AireLineId == 0) { command.model.AireLineId = null; }
             // validation
             var validator = new CreateAircraftRegistrationValidation(service);
             var validationResult = await validator.ValidateAsync(command);
