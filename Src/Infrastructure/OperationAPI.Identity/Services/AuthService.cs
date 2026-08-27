@@ -76,10 +76,16 @@ namespace OperationAPI.Identity.Services
                 Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
                 Email = user.Email!,
                 UserName = user.UserName!,
+                ExpiryDate = jwtSecurityToken.ValidTo
             };
 
             // get Airline agent info depending on returned userId
-            response.AirlineAgent = await GetAirlineAgentInfo(response.UserId);
+            var AirlineAgentList = await GetAirlineAgentInfo(response.UserId);
+
+            if(AirlineAgentList != null)
+            {
+                response.AirlineAgent = AirlineAgentList;
+            }
 
             // رجع النتيجة كاملة
             return response;
@@ -111,7 +117,7 @@ namespace OperationAPI.Identity.Services
                 issuer: _jwtSettings.Issuer,
                 audience: _jwtSettings.Audience,
                 claims: Claims,
-                expires: DateTime.Now.AddMinutes(_jwtSettings.DurationInMinutes),
+                expires: DateTime.UtcNow.AddMinutes(_jwtSettings.DurationInMinutes),
                 signingCredentials: signinCredentials
                 );
 

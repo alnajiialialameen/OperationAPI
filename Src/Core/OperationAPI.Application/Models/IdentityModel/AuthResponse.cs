@@ -9,6 +9,7 @@ namespace OperationAPI.Application.Models.IdentityModel
         public string UserName { get; set; }
         public string Email { get; set; }
         public string Token { get; set; }
+        public DateTime ExpiryDate { get; set; }
         public AirLineAgentDomain? AirlineAgent { get; set; }
     }
 }
