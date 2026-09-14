@@ -1,9 +1,4 @@
 ﻿using OperationAPI.Domain.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OperationAPI.Domain
 {
@@ -24,7 +19,7 @@ namespace OperationAPI.Domain
 
         public string? Latitude { get; set; }
 
-        public byte[]? Image { get; set; }
+        //public byte[]? Image { get; set; }
 
         public string? RevenuesManager { get; set; }
 

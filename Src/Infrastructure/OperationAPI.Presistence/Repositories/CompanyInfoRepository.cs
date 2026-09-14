@@ -1,12 +1,8 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using OperationAPI.Application.Contracts.Services;
 using OperationAPI.Domain;
 using OperationAPI.Presistence.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OperationAPI.Presistence.Repositories
 {
@@ -19,6 +15,31 @@ namespace OperationAPI.Presistence.Repositories
         public Task<bool> IsActive(CompanyInfoDomain model)
         {
             throw new NotImplementedException();
+        }
+        public override async Task<List<CompanyInfoDomain>> GetAsync()
+        {
+            var data = await base.Context.CompanyInfos.AsNoTracking()
+                            .ToListAsync();
+
+            var res = Mapper.Map<List<CompanyInfoDomain>>(data);
+
+            return res;
+        }
+
+        public override async Task<CompanyInfoDomain> GetByIdAsync(int id, bool withTracking = false)
+        {
+            var query = base.Context.CompanyInfos.AsQueryable();
+
+            if (!withTracking)
+            {
+                query = query.AsNoTracking();
+            }
+
+            var data = await query.FirstOrDefaultAsync(x => x.Id == id);
+
+            var res = Mapper.Map<CompanyInfoDomain>(data);
+
+            return res;
         }
     }
 }

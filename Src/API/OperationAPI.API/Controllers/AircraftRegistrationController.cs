@@ -20,7 +20,7 @@ namespace OperationAPI.API.Controllers
         {
             this.mediator = mediator;
         }
-
+       
         [HttpGet]
         public async Task<IActionResult> Get()
         {

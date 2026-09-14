@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using OperationAPI.API.MiddelWares;
 using OperationAPI.Application.Contracts.Services;
+using OperationAPI.Application.Mapper;
 using OperationAPI.Identity;
 using OperationAPI.Identity.DBContext;
 using OperationAPI.Presistence;
@@ -44,6 +45,7 @@ builder.Services.AddScoped<IOfficerDataService, OfficerDataRepository>();
 
 
 builder.Services.AddAutoMapper(typeof(MapperConfig).Assembly);
+builder.Services.AddAutoMapper(typeof(ApplicationMappingConfig).Assembly);
 
 
 

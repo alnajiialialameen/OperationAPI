@@ -16,7 +16,6 @@ namespace OperationAPI.Presistence.Repositories
         {
             this.Context = context;
             this.Mapper = mapper;
-
         }
         public async Task<XDomain> CreateAsync(XDomain model)
         {
@@ -36,7 +35,7 @@ namespace OperationAPI.Presistence.Repositories
             }
         }
 
-        public async Task<List<XDomain>> GetAsync()
+        public virtual async Task<List<XDomain>> GetAsync()
         {
             var query = this.Context.Set<XEntity>().AsQueryable();
             var entityType = this.Context.Model.FindEntityType(typeof(XEntity));
@@ -59,7 +58,7 @@ namespace OperationAPI.Presistence.Repositories
             return this.Mapper.Map<List<XDomain>>(data);
         }
 
-        public async Task<XDomain> GetByIdAsync(int id, bool withTracking = true)
+        public virtual async Task<XDomain> GetByIdAsync(int id, bool withTracking = false)
         {
             var query = Context.Set<XEntity>().AsQueryable();
 
@@ -118,10 +117,5 @@ namespace OperationAPI.Presistence.Repositories
             }
         }
 
-
-    
-
-
-
-}
+   }
 }

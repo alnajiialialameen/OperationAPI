@@ -86,4 +86,49 @@ namespace OperationAPI.Domain
         public TowerDataDomain? TowerData { get; set; }
 
     }
+
+
+    public class DepartureServiceDomain : BaseDomain
+    {
+        public int? TowerDataId { get; set; }
+        public int? HandlingAgentId { get; set; }
+        public int? FuelCompanyId { get; set; }
+        public decimal? FuelLiter { get; set; }
+        public int? Pax { get; set; }
+        public int? PaxInter { get; set; }
+        public int? FirstClassCount { get; set; }
+        public int? FreightLoadingExp { get; set; }
+        public decimal? NormalMailLoadingExp { get; set; }
+        public decimal? RapidMailLoadingExp { get; set; }
+        public int? AmbulanceCarCount { get; set; }
+        public int? FireFightingCarCount { get; set; }
+      
+        public bool? HasPushPack { get; set; }
+    }
+
+
+    public class LandingServiceDomain : BaseDomain
+    {
+        public int? TowerDataId { get; set; }
+        //public int? HandlingAgentId { get; set; }
+
+      
+        public int? Disemb { get; set; }  //البالغين النازلين من الطائرة
+        public int? DisEmbInft { get; set; }  //dis الاطقال النازلين  من الطائرة
+
+        //public int? Pax { get; set; }
+        public int? FreightLoadingImp { get; set; }
+        public decimal? NormalMailLoadingImp { get; set; }
+        public decimal? RapidMailLoadingImp { get; set; }
+        //public int? AmbulanceCarCount { get; set; }
+
+        //public int? FireFightingCarCount { get; set; }
+
+        //public int? AireLineAgentId { get; set; }
+
+        //public int? CompanyInfoId { get; set; }   
+
+    }
+
+
 }
