@@ -5,6 +5,7 @@ using OperationAPI.Application.Features.TowerData.Command.CreateDepartureService
 using OperationAPI.Application.Features.TowerData.Command.CreateLandingService;
 using OperationAPI.Application.Features.TowerData.Command.CreateTowerData;
 using OperationAPI.Application.Features.TowerData.Command.DeleteTowerData;
+using OperationAPI.Application.Features.TowerData.Command.UpdateTakeOffFlight;
 using OperationAPI.Application.Features.TowerData.Command.UpdateTowerData;
 using OperationAPI.Application.Features.TowerData.Quieres.GetAllTowerData;
 using OperationAPI.Application.Features.TowerData.Quieres.GetTowerDataById;
@@ -63,6 +64,13 @@ namespace OperationAPI.API.Controllers
             return Ok(data);
         }
 
+
+        [HttpPut("LandingFlight")]
+        public async Task<IActionResult> InitialLanding([FromBody] LandingInitialDomain model)
+        {
+            var data = await mediator.Send(new UpdateLandingFlightCommand(model));
+            return Ok(data);
+        }
 
         [HttpPost("DepartureService")]
         public async Task<IActionResult> DepartureService([FromBody] DepartureServiceDomain model)

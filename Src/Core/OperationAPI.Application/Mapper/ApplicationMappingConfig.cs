@@ -9,6 +9,9 @@ namespace OperationAPI.Application.Mapper
         {
             CreateMap<DepartureServiceDomain, OfficerDataDomain>().ReverseMap();
             CreateMap<LandingServiceDomain, OfficerDataDomain>().ReverseMap();
+            CreateMap<InitialDataDomain, TowerDataDomain>().ReverseMap();
+
+            
         }
     }
 }

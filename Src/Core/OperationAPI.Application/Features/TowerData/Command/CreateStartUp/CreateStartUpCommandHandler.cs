@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using OperationAPI.Application.Contracts.Services;
 using OperationAPI.Application.Exceptions;
 using OperationAPI.Application.Features.TowerData.Command.CreateTowerData;
@@ -15,10 +16,11 @@ namespace OperationAPI.Application.Features.TowerData.Command
     public class CreateStartUpCommandHandler : IRequestHandler<CreateStartUpCommand, TowerDataDomain>
     {
         private readonly ITowerDataService service;
-
-        public CreateStartUpCommandHandler(ITowerDataService service)
+        public IMapper Mapper { get; }
+        public CreateStartUpCommandHandler(ITowerDataService service, IMapper Mapper)
         {
             this.service = service;
+            this.Mapper = Mapper;   
         }
 
         public async Task<TowerDataDomain> Handle(CreateStartUpCommand command, CancellationToken cancellationToken)
@@ -34,15 +36,12 @@ namespace OperationAPI.Application.Features.TowerData.Command
                 throw new BadRequestException(nameof(InitialDataDomain), validationResult.Errors);
             }
 
-            var towerData = new TowerDataDomain
-            {
-                AirLineId = command.model.AirLineId,
-                FlightNo = command.model.FlightNo,
-                AircraftRegId = command.model.AircraftRegId,
-                CompanyInfoId = 10,
-                Date = DateOnly.FromDateTime(DateTime.Now),
+            var towerData = new TowerDataDomain();
+        
+            Mapper.Map(command.model, towerData);
+            towerData.CompanyInfoId = 10;
+            towerData.Date = DateOnly.FromDateTime(DateTime.Now);
 
-            };
 
             var res = await service.CreateAsync(towerData);
             return res;

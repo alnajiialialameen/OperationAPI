@@ -11,9 +11,9 @@ namespace OperationAPI.Domain
     {
         public int? TowerDataId { get; set; }
 
-        public int? CrewNo { get; set; }
+        //public int? CrewNo { get; set; }
 
-        public bool HasNightStop { get; set; }
+        //public bool HasNightStop { get; set; }
 
         public int? HandlingAgentId { get; set; }
 
@@ -21,9 +21,9 @@ namespace OperationAPI.Domain
 
         public int? Trnycupps { get; set; }
 
-        public int? Trny { get; set; }
+        //public int? Trny { get; set; }
 
-        public int? Trnone { get; set; }
+        //public int? Trnone { get; set; }
 
         public int? Emb { get; set; }
 
@@ -55,7 +55,7 @@ namespace OperationAPI.Domain
 
         public int? FireFightingCarCount { get; set; }
 
-        public int? ServiceCarReqId { get; set; }
+        //public int? ServiceCarReqId { get; set; }
 
         public bool IsCurrentAccount { get; set; }
 
@@ -69,7 +69,7 @@ namespace OperationAPI.Domain
 
         public bool? IsNotUsedCupps { get; set; }
 
-        public string? Note { get; set; }
+        //public string? Note { get; set; }
 
         public string? CreatedBy { get; set; }
 

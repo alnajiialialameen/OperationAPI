@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using OperationAPI.Application.Contracts.Services;
 using OperationAPI.Application.Exceptions;
 using OperationAPI.Application.Features.AircraftRegisteration.Command.UpdateAircraftRegistration;
@@ -20,38 +21,38 @@ namespace OperationAPI.Application.Features.TowerData.Command.UpdateTowerData
     public class UpdateStartUpCommandHandler : IRequestHandler<UpdateStartUpCommand, TowerDataDomain>
     {
         private readonly ITowerDataService service;
-
-        public UpdateStartUpCommandHandler(ITowerDataService service)
+        private readonly IMapper mapper;
+        public UpdateStartUpCommandHandler(ITowerDataService service, IMapper mapper)
         {
             this.service = service;
+            this.mapper = mapper;
         }
 
         public async Task<TowerDataDomain> Handle(UpdateStartUpCommand command, CancellationToken cancellationToken)
         {
-            //command.model.CompanyInfoId = 10;
-            //command.model.Date = DateOnly.FromDateTime(DateTime.Now);
             var validator = new UpdateStartUpValidator(service);
             var validationResult = await validator.ValidateAsync(command);
 
             if (validationResult.Errors.Any())
             {
-
                 throw new BadRequestException(nameof(InitialDataDomain), validationResult.Errors);
             }
 
-            var towerData = new TowerDataDomain
+            // 1. جلب السجل الموجود في قاعدة البيانات للتأكد من وجوده
+            var towerData = await service.GetByIdAsync(command.model.Id);
+
+            if (towerData == null)
             {
-                AirLineId = command.model.AirLineId,
-                FlightNo = command.model.FlightNo,
-                AircraftRegId = command.model.AircraftRegId,
-                CompanyInfoId = 10,
-                Date = DateOnly.FromDateTime(DateTime.Now),
+                throw new NotFoundException(nameof(TowerDataDomain), command.model.Id);
+            }
 
-            };
+            // 2. تحديث الحقول باستخدام AutoMapper
+            mapper.Map(command.model, towerData);
+            towerData.CompanyInfoId = 10;
+            towerData.Date = DateOnly.FromDateTime(DateTime.Now);
 
-            var res = await service.CreateAsync(towerData);
-            return res;
-
+            // 3. حفظ التعديل
+            return await service.UpdateAsync(towerData);
         }
     }
 
