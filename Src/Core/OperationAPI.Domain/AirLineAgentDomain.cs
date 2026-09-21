@@ -4,7 +4,6 @@ namespace OperationAPI.Domain
 {
     public class AirLineAgentDomain : BaseDomain
     {
-     
         public string? NameAr { get; set; }
 
         public string? NameAn { get; set; }

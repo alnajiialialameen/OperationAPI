@@ -51,8 +51,6 @@ namespace OperationAPI.Presistence.MapperConfig
               .ForMember(dest => dest.AirLineNameEn, opt => opt.MapFrom(src => src.AirLine!.Name))
               .ForMember(dest => dest.AirLineNameAr, opt => opt.MapFrom(src => src.AirLine!.ArName));
 
-
-
             CreateMap<TowerDatum, TowerDataDomain>().ReverseMap();
             CreateMap<OfficerDatum, OfficerDataDomain>().ReverseMap();
 

@@ -11,8 +11,5 @@ namespace OperationAPI.Domain
         public int? MonthWorkOn { get; set; }
 
         public int? CompanyInfoId { get; set; }
-
-        //public CompanyInfoDomain? CompanyInfo { get; set; }
-
     }
 }

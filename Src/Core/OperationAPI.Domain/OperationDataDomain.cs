@@ -1,15 +1,9 @@
 ﻿using OperationAPI.Domain.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OperationAPI.Domain
 {
    public class FlightDataDomain :BaseDomain 
     {
-
         // TowerData
         public int? AirLineId { get; set; }
 
@@ -56,9 +50,6 @@ namespace OperationAPI.Domain
         public string? UpdatedBy { get; set; }
 
         public DateTime? UpdatingDate { get; set; }
-
-
-
 
         //officer Data
         public int? TowerDataId { get; set; }
@@ -123,15 +114,6 @@ namespace OperationAPI.Domain
 
         public bool? HasPushPack { get; set; }
 
-
-      
-
-      
-
-      
-
         //public bool? IsClaimCalculated { get; set; }
-
-
     }
 }

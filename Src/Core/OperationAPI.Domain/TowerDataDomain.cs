@@ -4,7 +4,6 @@ namespace OperationAPI.Domain
 {
    public class TowerDataDomain : BaseDomain
     {
-      
         public int? AirLineId { get; set; }
 
         public int? FlightNo { get; set; }
@@ -63,18 +62,11 @@ namespace OperationAPI.Domain
         public int? CompanyInfoId { get; set; }
     }
 
-
-
     public class DepartureInitialDomain : BaseDomain
     {
         public int? AircraftRegId { get; set; }
         public DateTime? TakeOffDate { get; set; }
         public TimeOnly? Atd { get; set; }
-        //public int? CompanyInfoId { get; set; }
-
-        //public int? TowerDataId { get; set; }
-
-
     }
 
     public class LandingInitialDomain : BaseDomain
@@ -82,22 +74,5 @@ namespace OperationAPI.Domain
         public int? AircraftRegId { get; set; }
         public DateTime? LandingDate { get; set; }
         public TimeOnly? Ata { get; set; }
-        //public int? CompanyInfoId { get; set; }
-
-        //public int? TowerDataId { get; set; }
-
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
 }
