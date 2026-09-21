@@ -47,7 +47,9 @@ namespace OperationAPI.Presistence.MapperConfig
 
             // get
             CreateMap<AirLineAgent, AirLineAgentDomain>()
-              .ForMember(dest => dest.AirLine, opt => opt.MapFrom(src => src.AirLine));
+              .ForMember(dest => dest.AirLineCode, opt => opt.MapFrom(src => src.AirLine!.Code))
+              .ForMember(dest => dest.AirLineNameEn, opt => opt.MapFrom(src => src.AirLine!.Name))
+              .ForMember(dest => dest.AirLineNameAr, opt => opt.MapFrom(src => src.AirLine!.ArName));
 
 
 

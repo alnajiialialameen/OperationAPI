@@ -20,10 +20,16 @@ namespace OperationAPI.Domain
         public int? AirLineId { get; set; }
 
         public string? UserId { get; set; }
+        
+        public string? AirLineNameAr { get; set; }
+        
+        public string? AirLineNameEn { get; set; }
+        
+        public string? AirLineCode { get; set; }
 
         public bool IsActive { get; set; }
 
-        public AirLineDomain? AirLine { get; set; }
+        //public AirLineDomain? AirLine { get; set; }
 
         //public virtual ICollection<AireCraftStyIn> AireCraftStyInAireLineAgentId1Navigations { get; set; } = new List<AireCraftStyIn>();
 
