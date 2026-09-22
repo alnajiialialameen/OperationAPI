@@ -4,11 +4,11 @@ using OperationAPI.Application.Contracts.Services;
 using OperationAPI.Domain.Common;
 using OperationAPI.Presistence.PartialModel;
 using OperationAPI.Presistence.Models;
+
 namespace OperationAPI.Presistence.Repositories
 {
    public class GenericRepository<XDomain, XEntity> : IGenericService<XDomain> where XDomain : BaseDomain where XEntity : class, IBaseEntity
     {
-
         public Entities Context { get; }
         public IMapper Mapper { get; }
 
@@ -17,6 +17,7 @@ namespace OperationAPI.Presistence.Repositories
             this.Context = context;
             this.Mapper = mapper;
         }
+
         public async Task<XDomain> CreateAsync(XDomain model)
         {
             try

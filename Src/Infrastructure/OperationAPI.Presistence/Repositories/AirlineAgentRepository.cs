@@ -14,9 +14,11 @@ namespace OperationAPI.Presistence.Repositories
 
         public async Task<AirLineAgentDomain> getByUserId(string userId)
         {
-            var data = await this.Context.AirLineAgents.FirstOrDefaultAsync(q=> q.UserId == userId);
+            var data = await this.Context.AirLineAgents
+                                                            .Include(q => q.AirLine)
+                                                            .FirstOrDefaultAsync(q => q.UserId == userId);
 
-            if(data != null)
+            if (data != null)
             {
                 return this.Mapper.Map<AirLineAgentDomain>(data);
             }

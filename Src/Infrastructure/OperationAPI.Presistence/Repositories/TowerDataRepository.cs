@@ -3,11 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using OperationAPI.Application.Contracts.Services;
 using OperationAPI.Domain;
 using OperationAPI.Presistence.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OperationAPI.Presistence.Repositories
 {
@@ -16,8 +11,6 @@ namespace OperationAPI.Presistence.Repositories
         public TowerDataRepository(Entities context, IMapper mapper) : base(context, mapper)
         {
         }
-
-      
 
         //public async Task<List<TowerDataDomain>> GetTowerDataByDate(DateTime Date)
         //{
@@ -42,8 +35,6 @@ namespace OperationAPI.Presistence.Repositories
         public async Task<bool> IsUniqueObjectSetUp(InitialDataDomain model)
         {
             return await Context.TowerData.AnyAsync(x => x.Id != model.Id && (x.AircraftRegId == model.AircraftRegId && x.Date == model.Date && x.FlightNo == model.FlightNo));
-
-
         }
         public Task<TowerDataDomain> CreateDepartureInitial(DepartureInitialDomain model)
         {
@@ -54,7 +45,5 @@ namespace OperationAPI.Presistence.Repositories
         {
             throw new NotImplementedException();
         }
-
-       
     }
 }

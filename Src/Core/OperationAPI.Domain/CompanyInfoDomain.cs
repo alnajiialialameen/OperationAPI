@@ -2,9 +2,6 @@
 
 namespace OperationAPI.Domain
 {
-
- 
-
     public class CompanyInfoDomain : BaseDomain
     {
         public string? NameAr { get; set; }

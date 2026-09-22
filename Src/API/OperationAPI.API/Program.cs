@@ -1,13 +1,10 @@
-﻿using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
-using OperationAPI.API.MiddelWares;
+﻿using OperationAPI.API.MiddelWares;
 using OperationAPI.Application.Contracts.Services;
 using OperationAPI.Application.Mapper;
 using OperationAPI.Identity;
-using OperationAPI.Identity.DBContext;
+using OperationAPI.Infrastructure;
 using OperationAPI.Presistence;
 using OperationAPI.Presistence.MapperConfig;
-using OperationAPI.Presistence.Models;
 using OperationAPI.Presistence.Repositories;
 using OperationAPI.Presistence.Services;
 using System.Reflection;
@@ -15,16 +12,18 @@ using System.Reflection;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-
 builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssembly(Assembly.Load("OperationAPI.Application"));
 });
 
+// Infrastructure Services Registeration
+builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.RegisterPersistenceServices(builder.Configuration);
 
+builder.Services.AddScoped<IAirlineService, AirLineRepository>();
+builder.Services.AddScoped<IAirportService, AirportRepository>();
 builder.Services.AddScoped<IAirlineAgentService, AirlineAgentRepository>();
 builder.Services.AddScoped<IAircraftSizeService, AircraftSizeRepository>();
 builder.Services.AddScoped<IAircraftRegistrationService, AircraftRegisterationRepository>();
