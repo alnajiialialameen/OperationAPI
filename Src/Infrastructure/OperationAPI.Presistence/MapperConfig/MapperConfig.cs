@@ -35,8 +35,25 @@ namespace OperationAPI.Presistence.MapperConfig
             CreateMap<AircraftRegistration, AircraftRegistrationDomain>()
                 .ForMember(dest => dest.AircraftType, opt => opt.MapFrom(src => src.AircraftType));
             //.ForMember(dest => dest.AireLine, opt => opt.MapFrom(src => src.AireLine));
+
             // AirLine
-            CreateMap<AirLine, AirLineDomain>();
+            CreateMap<AirLine, AirLineDomain>()
+                .ForMember(dest => dest.NameAr, opt => opt.MapFrom(src => src.ArName))
+                .ForMember(dest => dest.NameEn, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Code, opt => opt.MapFrom(src => src.Code))
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+            .ReverseMap();
+
+            // AirPort
+            CreateMap<AirPort, AirPortDomain>()
+                .ForMember(dest => dest.NameAr, opt => opt.MapFrom(src => src.NameAr))
+                .ForMember(dest => dest.NameEn, opt => opt.MapFrom(src => src.NameEn))
+                .ForMember(dest => dest.Code, opt => opt.MapFrom(src => src.Code))
+                .ForMember(dest => dest.CountryId, opt => opt.MapFrom(src => src.CountryId))
+                .ForMember(dest => dest.CountryName, opt => opt.MapFrom(src => src.Country!.NameEn?? src.Country.NameAr))
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+            .ReverseMap();
 
 
             //AirLineAgent

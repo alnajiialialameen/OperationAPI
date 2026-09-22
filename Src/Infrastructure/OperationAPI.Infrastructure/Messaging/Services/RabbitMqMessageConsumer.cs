@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using OperationAPI.Infrastructure.Messaging.Configurations;
 using System.Text.Json;
 using System.Text;
+using OperationAPI.Domain;
 
 namespace OperationAPI.Infrastructure.Messaging.Services
 {
@@ -50,15 +51,26 @@ namespace OperationAPI.Infrastructure.Messaging.Services
                         throw new Exception("Failed to deserialize RabbitMQ message.");
                     }
 
+                    var actualMessageType = rabbitMessage.Message.GetType();
+
+                    if (actualMessageType != metadata.MessageType)
+                    {
+                        await channel.BasicNackAsync(args.DeliveryTag, multiple: false, requeue: true);
+
+                        return;
+                    }
+
                     var handler = handlerResolver.Resolve(metadata.MessageType);
 
                     await handler.HandleAsync(rabbitMessage.Message, rabbitMessage.IsUpdateOperation);
 
                     await channel.BasicAckAsync(args.DeliveryTag, multiple: false);
+                    
                 };
 
                 await channel.BasicConsumeAsync(queue: metadata.QueueName, autoAck: false, consumer: consumer);
             }
+        
         }
     }
 

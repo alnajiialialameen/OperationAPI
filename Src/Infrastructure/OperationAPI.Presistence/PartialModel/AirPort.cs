@@ -2,7 +2,7 @@
 
 namespace OperationAPI.Presistence.Models
 {
-    public partial class AircraftType : IBaseEntity
+    public partial class AirPort : IBaseEntity
     {
     }
 }

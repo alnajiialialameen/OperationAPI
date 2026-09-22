@@ -20,8 +20,16 @@ namespace OperationAPI.Infrastructure.Messaging.Handlers
             }
             else
             {
-                // Create logic
-                await service.CreateAsync(message);
+                var isUnique = await service.IsUniqueObject(message);
+
+                // true = يوجد سجل مكرر
+                // false = لا يوجد سجل مكرر
+                if (isUnique == false)
+                {
+                    // Create logic
+                    await service.CreateAsync(message);
+                }
+
             }
         }
     }

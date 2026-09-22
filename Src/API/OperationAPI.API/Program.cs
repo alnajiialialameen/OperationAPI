@@ -22,6 +22,8 @@ builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.RegisterPersistenceServices(builder.Configuration);
 
+builder.Services.AddScoped<IAirlineService, AirLineRepository>();
+builder.Services.AddScoped<IAirportService, AirportRepository>();
 builder.Services.AddScoped<IAirlineAgentService, AirlineAgentRepository>();
 builder.Services.AddScoped<IAircraftSizeService, AircraftSizeRepository>();
 builder.Services.AddScoped<IAircraftRegistrationService, AircraftRegisterationRepository>();
