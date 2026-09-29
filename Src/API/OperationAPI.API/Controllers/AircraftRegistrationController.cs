@@ -6,6 +6,7 @@ using OperationAPI.Application.Features.AircraftRegisteration.Command.DeleteAirc
 using OperationAPI.Application.Features.AircraftRegisteration.Command.UpdateAircraftRegistration;
 using OperationAPI.Application.Features.AircraftRegisteration.Quieres.GetAircraftRegisterationById;
 using OperationAPI.Application.Features.AircraftRegisteration.Quieres.GetAllAircraftRegisteration;
+using OperationAPI.Application.Features.AircraftRegisteration.Quieres.GetRegByAirlineId;
 using OperationAPI.Domain;
 
 namespace OperationAPI.API.Controllers
@@ -36,6 +37,16 @@ namespace OperationAPI.API.Controllers
 
             return Ok(data);
         }
+
+        [HttpGet("Registeration/{airlineId}")]
+        public async Task<IActionResult> GetByAirlineId(int airlineId)
+        {
+            var data = await mediator.Send(new GetRegByAirlineIdRequest(airlineId));
+
+            return Ok(data);
+        }
+
+
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] AircraftRegistrationDomain model)

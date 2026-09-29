@@ -10,5 +10,8 @@ namespace OperationAPI.Application.Contracts.Services
    public interface IAircraftRegistrationService : IGenericService<AircraftRegistrationDomain>
     {
         Task<bool> IsUniqueObject(AircraftRegistrationDomain model);
+
+
+        Task<List<AircraftRegistrationDomain>> GetRegistrationByAirlineId(int? AirlineId);
     }
 }

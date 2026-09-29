@@ -12,7 +12,9 @@ namespace OperationAPI.Application.Contracts.Services
         Task<bool> IsUniqueObjectSetUp(InitialDataDomain model);
      
 
-        Task<List<TowerDataDomain>> GetTowerDataByDate(DateOnly Date ,int? AirlineId , int? Status);
+        //Task<List<TowerDataDomain>> GetTowerDataByDate(DateOnly Date ,int? AirlineId , int? Status);
+        Task<List<TowerDataDomain>> GetTodayFilghtLocal(int? AirlineId);
+
         //Task<TowerDataDomain> UpdateAsyncDeparture(TowerDataDomain model);
         Task<TowerDataDomain> CreateDepartureInitial(DepartureInitialDomain model);
         Task<TowerDataDomain> UpdateDepartureInitial(DepartureInitialDomain model);

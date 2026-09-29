@@ -18,8 +18,11 @@ namespace OperationAPI.Infrastructure
             services.Configure<MessageConfiguration>(configuration.GetSection("RabbitMQ"));
 
             // RabbitMQ Consumer Hosted Service(as Background Service)
-            services.AddHostedService<RabbitMqConsumerHostedService>();
-
+            bool IsRabbitMqEnabled = configuration.GetValue<bool>("RabbitMQ:IsEnabled");
+            if (IsRabbitMqEnabled)
+            {
+                services.AddHostedService<RabbitMqConsumerHostedService>();
+            }
             // RabbitMQ Connection
             services.AddSingleton<IRabbitMqConnection, RabbitMqConnection>();
 

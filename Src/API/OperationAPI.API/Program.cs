@@ -1,8 +1,10 @@
 ﻿using OperationAPI.API.MiddelWares;
+using OperationAPI.Application.Contracts.FidsAPIServices;
 using OperationAPI.Application.Contracts.Services;
 using OperationAPI.Application.Mapper;
 using OperationAPI.Identity;
 using OperationAPI.Infrastructure;
+using OperationAPI.Infrastructure.FidsAPI;
 using OperationAPI.Presistence;
 using OperationAPI.Presistence.MapperConfig;
 using OperationAPI.Presistence.Repositories;
@@ -42,6 +44,12 @@ builder.Services.AddScoped<IOfficerDataService, OfficerDataRepository>();
 
 
 
+builder.Services.AddHttpClient<IConsumeFidsAPIService, ConsumeFidsAPIRepository>(client =>
+{
+    client.BaseAddress = new Uri(
+        builder.Configuration["FIDSApi:BaseUrl"]
+    );
+});
 
 builder.Services.AddAutoMapper(typeof(MapperConfig).Assembly);
 builder.Services.AddAutoMapper(typeof(ApplicationMappingConfig).Assembly);

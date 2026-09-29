@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using OperationAPI.Application.Features.TowerData.Command.CreateDepartureInitial;
 using OperationAPI.Application.Features.TowerData.Command.CreateDepartureService;
@@ -6,8 +7,7 @@ using OperationAPI.Application.Features.TowerData.Command.CreateLandingService;
 using OperationAPI.Application.Features.TowerData.Command.CreateTowerData;
 using OperationAPI.Application.Features.TowerData.Command.DeleteTowerData;
 using OperationAPI.Application.Features.TowerData.Command.UpdateTakeOffFlight;
-using OperationAPI.Application.Features.TowerData.Command.UpdateTowerData;
-using OperationAPI.Application.Features.TowerData.Quieres.GetAllTowerData;
+using OperationAPI.Application.Features.TowerData.Quieres.GetTodayFlight;
 using OperationAPI.Application.Features.TowerData.Quieres.GetTowerDataById;
 using OperationAPI.Domain;
 
@@ -24,13 +24,13 @@ namespace OperationAPI.API.Controllers
             this.mediator = mediator;
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> Get()
-        //{
-        //    var data = await mediator.Send(new GetAllTowerDataRequest());
+        [HttpGet("TodayFlight/{AirLineId}")]
+        public async Task<IActionResult> TodayFlight(int AirLineId)
+        {
+            var data = await mediator.Send(new GetTodayFlightRequest(AirLineId));
 
-        //    return Ok(data);
-        //}
+            return Ok(data);
+        }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)

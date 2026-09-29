@@ -107,9 +107,9 @@ public partial class Entities : DbContext
 
     public virtual DbSet<WorkOn> WorkOns { get; set; }
 
-//    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-//        => optionsBuilder.UseSqlServer("Server=DESKTOP-2NIRS86\\NAJI;Database=AirportERP;Trusted_Connection=True;TrustServerCertificate=True;");
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=DESKTOP-2NIRS86\\NAJI;Database=AirportERP;Trusted_Connection=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -853,6 +853,7 @@ public partial class Entities : DbContext
                 .HasMaxLength(128)
                 .UseCollation("SQL_Latin1_General_CP1_CI_AS");
             entity.Property(e => e.CreationDate).HasColumnType("datetime");
+            entity.Property(e => e.FlightNoName).HasMaxLength(50);
             entity.Property(e => e.LandingDate).HasColumnType("datetime");
             entity.Property(e => e.LandingPermission)
                 .HasMaxLength(50)

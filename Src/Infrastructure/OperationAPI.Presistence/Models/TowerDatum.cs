@@ -43,6 +43,10 @@ public partial class TowerDatum
 
     public int? CompanyInfoId { get; set; }
 
+    public int? FidsFlightId { get; set; }
+
+    public string? FlightNoName { get; set; }
+
     public string? Note { get; set; }
 
     public string? CreatedBy { get; set; }

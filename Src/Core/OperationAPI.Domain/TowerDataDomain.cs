@@ -9,7 +9,10 @@ namespace OperationAPI.Domain
         public int? FlightNo { get; set; }
 
         public int? AircraftRegId { get; set; }
+        public int? FidsFlightId { get; set; }
+        public bool? IsConsumed { get; set; }
 
+        
         //public int? AirportIdFrom { get; set; }
 
         public int? AirportIdTo { get; set; }
@@ -55,11 +58,13 @@ namespace OperationAPI.Domain
     public class InitialDataDomain : BaseDomain
     {
         public int? AirLineId { get; set; }
-        public int? FlightNo { get; set; }
+        public string? FlightNoName { get; set; }
         public int? AircraftRegId { get; set; }
         public int? AirportIdTo { get; set; }
         public DateOnly? Date { get; set; }
         public int? CompanyInfoId { get; set; }
+        public int? FidsFlightId { get; set; }
+        
     }
 
     public class DepartureInitialDomain : BaseDomain
