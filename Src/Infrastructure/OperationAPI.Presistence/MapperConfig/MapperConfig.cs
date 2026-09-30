@@ -73,7 +73,7 @@ namespace OperationAPI.Presistence.MapperConfig
 
             #region flight  Mapper
             CreateMap<TowerDatum, TowerDataViewDomain>();
-            CreateMap<TowerDatum, TowerDataFullDomain>();
+            CreateMap<TowerDatum, TowerDataStartUpDomain>();
             
             #endregion
 

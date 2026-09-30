@@ -12,11 +12,12 @@ namespace OperationAPI.Application.Features.TowerData.Command.CreateLandingServi
 
         readonly IOfficerDataService service;
         public IMapper Mapper { get; }
-
-        public CreateLandingServiceCommandHandler(IOfficerDataService service, IMapper mapper)
+        readonly ITowerDataService Tservice;
+        public CreateLandingServiceCommandHandler(IOfficerDataService service, IMapper mapper, ITowerDataService tservice   )
         {
             this.service = service;
             this.Mapper = mapper;
+            Tservice = tservice;
         }
         public async Task<OfficerDataDomain> Handle(CreateLandingServiceCommand command, CancellationToken cancellationToken)
         {
@@ -38,20 +39,20 @@ namespace OperationAPI.Application.Features.TowerData.Command.CreateLandingServi
                 {
                     throw new NotFoundException(nameof(LandingServiceDomain), command.model.Id);
                 }
-                officerData.TowerData.Status = 5;
+              
 
                 Mapper.Map(command.model, officerData);
-               
-                return await service.UpdateAsync(officerData);
+                var result = service.UpdateAsync(officerData);
+                var result2 = Tservice.setStatus(command.model.TowerDataId, 5);
+                return await result;
             }
             else
             {
                 OfficerDataDomain officerData = new OfficerDataDomain();
 
                 Mapper.Map(command.model, officerData);
-               
-
                 var res = await service.CreateAsync(officerData);
+                var result2 = Tservice.setStatus(command.model.TowerDataId, 5);
                 return res;
             }
         }

@@ -66,14 +66,14 @@ namespace OperationAPI.Domain
 
         public bool? IsClaimCalculated { get; set; }
 
-        public TowerDataFullDomain? TowerData { get; set; }
+        public TowerDataDomain? TowerData { get; set; }
 
     }
 
 
     public class DepartureServiceDomain : BaseDomain
     {
-        public int? TowerDataId { get; set; }
+        public int TowerDataId { get; set; }
         public int? HandlingAgentId { get; set; }
         public int? FuelCompanyId { get; set; }
         public decimal? FuelLiter { get; set; }

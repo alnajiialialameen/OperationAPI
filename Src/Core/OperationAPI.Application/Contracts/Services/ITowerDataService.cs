@@ -23,6 +23,7 @@ namespace OperationAPI.Application.Contracts.Services
 
         Task<OfficerDataDomain> GetOfficerDataById(int? TowerDataId);
 
+        Task<bool> setStatus(int? TowerDataId, int? status);
 
     }
 }

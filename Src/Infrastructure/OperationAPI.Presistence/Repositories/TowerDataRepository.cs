@@ -115,9 +115,16 @@ namespace OperationAPI.Presistence.Repositories
                 : new OfficerDataDomain();
 
             result.TowerDataId = towerData.Id;
-            result.TowerData = Mapper.Map<TowerDataFullDomain>(towerData);
+            result.TowerData = Mapper.Map<TowerDataDomain>(towerData);
 
             return result;
+        }
+
+        public async Task<bool> setStatus(int? TowerDataId,int? status)
+        {
+            var towerData = await Context.TowerData.FindAsync(TowerDataId);
+            towerData.Status = status;
+            return true;
         }
     }
 }

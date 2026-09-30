@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace OperationAPI.Domain
 {
-       public class TowerDataDomain : BaseDomain
+       public class TowerDataStartUpDomain : BaseDomain
        {
         public int? AirLineId { get; set; }
 
@@ -122,7 +122,7 @@ namespace OperationAPI.Domain
     }
 
 
-    public class TowerDataFullDomain : BaseDomain
+    public class TowerDataDomain : BaseDomain
     {
         public int? AirLineId { get; set; }
         public int? AircraftRegId { get; set; }
