@@ -9,6 +9,5 @@ namespace OperationAPI.Application.Contracts.Services
 {
    public interface IFlightService : IGenericService<FlightDataDomain>
     {
-
     }
 }

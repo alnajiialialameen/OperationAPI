@@ -33,21 +33,23 @@ namespace OperationAPI.Application.Features.TowerData.Command.CreateDepartureSer
             if (command.model.Id > 0)
             {
                 var officerData = await service.GetByIdAsync(command.model.Id);
+               
 
                 if (officerData == null)
                 {
                     throw new NotFoundException(nameof(DepartureServiceDomain), command.model.Id);
                 }
+                officerData.TowerData.Status = 2;
 
-              
                 Mapper.Map(command.model, officerData);
                 return await service.UpdateAsync(officerData);
             }
             else
             {
                 OfficerDataDomain officerData = new OfficerDataDomain();
-            
+                officerData.TowerData.Status = 2;
                 Mapper.Map(command.model, officerData);
+
                 var res = await service.CreateAsync(officerData);
                 return res;
             }

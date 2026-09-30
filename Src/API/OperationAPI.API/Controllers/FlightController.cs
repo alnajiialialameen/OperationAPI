@@ -7,6 +7,8 @@ using OperationAPI.Application.Features.TowerData.Command.CreateLandingService;
 using OperationAPI.Application.Features.TowerData.Command.CreateTowerData;
 using OperationAPI.Application.Features.TowerData.Command.DeleteTowerData;
 using OperationAPI.Application.Features.TowerData.Command.UpdateTakeOffFlight;
+using OperationAPI.Application.Features.TowerData.Quieres.GetFlightByStatus;
+using OperationAPI.Application.Features.TowerData.Quieres.GetOfficerDataById;
 using OperationAPI.Application.Features.TowerData.Quieres.GetTodayFlight;
 using OperationAPI.Application.Features.TowerData.Quieres.GetTowerDataById;
 using OperationAPI.Domain;
@@ -31,6 +33,25 @@ namespace OperationAPI.API.Controllers
 
             return Ok(data);
         }
+
+
+        [HttpGet("FlightsDepature/{AirLineId}")]
+        public async Task<IActionResult> FlightsDepature(int AirLineId)
+        {
+            List<int> statuses = new List<int> { 1, 2};
+            var data = await mediator.Send(new GetFlightByStatusRequest(AirLineId, statuses));
+
+            return Ok(data);
+        }
+        [HttpGet("FlightsLanding/{AirLineId}")]
+        public async Task<IActionResult> FlightsLanding(int AirLineId)
+        {
+            List<int> statuses = new List<int> { 3, 4 };
+            var data = await mediator.Send(new GetFlightByStatusRequest(AirLineId, statuses));
+
+            return Ok(data);
+        }
+
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
@@ -88,6 +109,14 @@ namespace OperationAPI.API.Controllers
         }
 
 
+
+        [HttpGet("GetOfficerDataById/{TowerDataId}")]
+        public async Task<IActionResult> GetOfficerDataById(int TowerDataId)
+        {
+            var data = await mediator.Send(new GetOfficerDataByIdRequest(TowerDataId));
+
+            return Ok(data);
+        }
 
 
         [HttpDelete("{id}")]

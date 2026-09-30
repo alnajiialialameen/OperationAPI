@@ -19,6 +19,10 @@ namespace OperationAPI.Application.Contracts.Services
         Task<TowerDataDomain> CreateDepartureInitial(DepartureInitialDomain model);
         Task<TowerDataDomain> UpdateDepartureInitial(DepartureInitialDomain model);
 
+        Task<List<TowerDataViewDomain>> GetFlightByStatus(int? airlineId, List<int> statuses);
+
+        Task<OfficerDataDomain> GetOfficerDataById(int? TowerDataId);
+
 
     }
 }

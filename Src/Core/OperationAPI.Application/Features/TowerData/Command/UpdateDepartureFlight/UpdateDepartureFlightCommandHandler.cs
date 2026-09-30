@@ -36,7 +36,7 @@ namespace OperationAPI.Application.Features.TowerData.Command.CreateDepartureIni
             towerData.AircraftRegId = command.model.AircraftRegId;
             towerData.TakeOffDate = command.model.TakeOffDate;
             towerData.Ata = command.model.Atd;
-
+            towerData.Status = 3;
             var res = await service.UpdateAsync(towerData);
             return res;
         }

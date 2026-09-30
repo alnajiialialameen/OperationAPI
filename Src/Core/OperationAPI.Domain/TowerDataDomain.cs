@@ -1,19 +1,20 @@
 ﻿using OperationAPI.Domain.Common;
+using System.Globalization;
 
 namespace OperationAPI.Domain
 {
-   public class TowerDataDomain : BaseDomain
-    {
+       public class TowerDataDomain : BaseDomain
+       {
         public int? AirLineId { get; set; }
 
-        public int? FlightNo { get; set; }
+        public string? FlightNoName { get; set; }
 
         public int? AircraftRegId { get; set; }
         public int? FidsFlightId { get; set; }
         public bool? IsConsumed { get; set; }
 
         
-        //public int? AirportIdFrom { get; set; }
+        //public int? AirportIdFrom { get; set; }  //====
 
         public int? AirportIdTo { get; set; }
 
@@ -21,17 +22,17 @@ namespace OperationAPI.Domain
 
         //public int? FlightTypeL { get; set; }
 
-        //public DateTime? LandingDate { get; set; }
+        //public DateTime? LandingDate { get; set; }  //====
 
         public DateTime? TakeOffDate { get; set; }
 
-        //public int? Status { get; set; }
+        public int? Status { get; set; }
 
         public DateOnly? Date { get; set; }
 
         public TimeOnly? Ata { get; set; }
 
-        //public TimeOnly? Atd { get; set; }
+       //public TimeOnly? Atd { get; set; }   //====
 
         //public int? Pob { get; set; }
 
@@ -53,6 +54,45 @@ namespace OperationAPI.Domain
 
         //public DateTime? UpdatingDate { get; set; }
     }
+
+
+    public class TowerDataViewDomain : BaseDomain
+    {
+        public int? AirLineId { get; set; }
+
+        public string? FlightNoName { get; set; }
+
+        public int? AircraftRegId { get; set; }
+        public int? FidsFlightId { get; set; }
+        public int? AirportIdTo { get; set; }
+        public int? AirportIdFrom { get; set; }
+
+        public DateTime? LandingDate { get; set; }
+
+        public DateTime? TakeOffDate { get; set; }
+        public int? Status { get; set; }
+        public DateOnly? Date { get; set; }
+
+        public TimeOnly? Ata { get; set; }
+        public TimeOnly? Atd { get; set; }
+        public int? CompanyInfoId { get; set; }
+
+        public AirLineDomain AirLine { get; set; }
+
+        public AircraftRegistrationDomain? AircraftReg { get; set; }
+
+        public AirPortDomain AirportIdFromNavigation { get; set; }
+
+        public  AirPortDomain AirportIdToNavigation { get; set; }
+
+     
+
+
+
+
+    }
+
+
 
 
     public class InitialDataDomain : BaseDomain
@@ -80,4 +120,38 @@ namespace OperationAPI.Domain
         public DateTime? LandingDate { get; set; }
         public TimeOnly? Ata { get; set; }
     }
+
+
+    public class TowerDataFullDomain : BaseDomain
+    {
+        public int? AirLineId { get; set; }
+        public int? AircraftRegId { get; set; }
+        public int? AirportIdFrom { get; set; }
+        public int? AirportIdTo { get; set; }
+        public DateTime? LandingDate { get; set; }
+        public DateTime? TakeOffDate { get; set; }
+        public int? Status { get; set; }
+        public DateOnly? Date { get; set; }
+        public TimeOnly? Ata { get; set; }
+        public TimeOnly? Atd { get; set; }
+        public int? TripTypeId { get; set; }
+        public int? CompanyInfoId { get; set; }
+        public int? FidsFlightId { get; set; }
+        public string? FlightNoName { get; set; }
+        public string? CreatedBy { get; set; }
+
+        public DateTime? CreationDate { get; set; }
+
+        public string? UpdatedBy { get; set; }
+
+        public DateTime? UpdatingDate { get; set; }
+
+      
+    }
+
+
+
+
+
+
 }

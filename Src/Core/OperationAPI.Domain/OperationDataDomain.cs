@@ -116,4 +116,7 @@ namespace OperationAPI.Domain
 
         //public bool? IsClaimCalculated { get; set; }
     }
+
+
+   
 }

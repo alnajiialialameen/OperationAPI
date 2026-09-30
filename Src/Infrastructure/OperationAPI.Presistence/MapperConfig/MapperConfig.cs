@@ -71,6 +71,12 @@ namespace OperationAPI.Presistence.MapperConfig
             CreateMap<TowerDatum, TowerDataDomain>().ReverseMap();
             CreateMap<OfficerDatum, OfficerDataDomain>().ReverseMap();
 
+            #region flight  Mapper
+            CreateMap<TowerDatum, TowerDataViewDomain>();
+            CreateMap<TowerDatum, TowerDataFullDomain>();
+            
+            #endregion
+
         }
     }
 }

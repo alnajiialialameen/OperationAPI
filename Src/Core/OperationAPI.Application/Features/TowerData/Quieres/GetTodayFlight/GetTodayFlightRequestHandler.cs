@@ -72,7 +72,7 @@ namespace OperationAPI.Application.Features.TowerData.Quieres.GetTodayFlight
 
             // Get all flights from FIDS API
             var flightsList = await FidsAPIService.GetToDayFlights();
-
+            flightsList = flightsList.Where(x => x.AirlineId == request.AirLineId).ToList();
             if (!flightsList.Any())
             {
                 return new List<FlightDomain>();
@@ -86,9 +86,15 @@ namespace OperationAPI.Application.Features.TowerData.Quieres.GetTodayFlight
             // Compare all FIDS flights with local flights
             flightsList = flightsList.Select(e =>
             {
-                e.IsConsumed = clientIds.Contains(e.Id);
+                var localFlight = data.FirstOrDefault(x => x.FidsFlightId == e.Id);
+
+                e.IsConsumed = localFlight != null;
                 e.IsOpen = e.FlightStatusId >= 1;
 
+                if (localFlight != null)
+                {
+                    e.TowerDataId = localFlight.Id;
+                }
 
                 return e;
             }).ToList();

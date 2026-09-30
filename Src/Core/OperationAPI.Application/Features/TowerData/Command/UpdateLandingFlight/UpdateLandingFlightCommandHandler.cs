@@ -41,7 +41,7 @@ namespace OperationAPI.Application.Features.TowerData.Command.UpdateTakeOffFligh
             towerData.AircraftRegId = command.model.AircraftRegId;
             towerData.TakeOffDate = command.model.LandingDate;
             towerData.Ata = command.model.Ata;
-
+            towerData.Status = 4;
             var res = await service.UpdateAsync(towerData);
             return res;
         }

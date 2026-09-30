@@ -40,6 +40,7 @@ namespace OperationAPI.Application.Features.TowerData.Command
         
             Mapper.Map(command.model, towerData);
             towerData.CompanyInfoId = 10;
+            towerData.Status = 1;
             towerData.Date = DateOnly.FromDateTime(DateTime.Now);
 
 

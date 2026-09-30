@@ -2,7 +2,7 @@
 
 namespace OperationAPI.Domain
 {
-   public class OfficerDataDomain : BaseDomain
+    public class OfficerDataDomain : BaseDomain
     {
         public int? TowerDataId { get; set; }
 
@@ -66,9 +66,10 @@ namespace OperationAPI.Domain
 
         public bool? IsClaimCalculated { get; set; }
 
-        public TowerDataDomain? TowerData { get; set; }
+        public TowerDataFullDomain? TowerData { get; set; }
 
     }
+
 
     public class DepartureServiceDomain : BaseDomain
     {
