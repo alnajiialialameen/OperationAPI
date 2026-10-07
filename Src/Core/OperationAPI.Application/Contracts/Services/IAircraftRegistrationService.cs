@@ -13,5 +13,7 @@ namespace OperationAPI.Application.Contracts.Services
 
 
         Task<List<AircraftRegistrationDomain>> GetRegistrationByAirlineId(int? AirlineId);
+        Task<List<AircraftRegistrationDomain>> GetRegistrationByAll();
+
     }
 }

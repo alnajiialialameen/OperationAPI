@@ -26,11 +26,10 @@ namespace OperationAPI.API.Controllers
             this.mediator = mediator;
         }
 
-        [HttpGet("TodayFlight/{AirLineId}")]
-        public async Task<IActionResult> TodayFlight(int AirLineId)
+        [HttpGet("TodayFlight")]
+        public async Task<IActionResult> TodayFlight([FromQuery] int? airLineId = null)
         {
-            var data = await mediator.Send(new GetTodayFlightRequest(AirLineId));
-
+            var data = await mediator.Send(new GetTodayFlightRequest(airLineId));
             return Ok(data);
         }
 

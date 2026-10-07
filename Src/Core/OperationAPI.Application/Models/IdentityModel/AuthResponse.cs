@@ -10,6 +10,7 @@ namespace OperationAPI.Application.Models.IdentityModel
         public string Email { get; set; }
         public string Token { get; set; }
         public DateTime ExpiryDate { get; set; }
+        public bool RequiresPasswordChange { get; set; }
         public AirLineAgentDomain? AirlineAgent { get; set; }
     }
 }

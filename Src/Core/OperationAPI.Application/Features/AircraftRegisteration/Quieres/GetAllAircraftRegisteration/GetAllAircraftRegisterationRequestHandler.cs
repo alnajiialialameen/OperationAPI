@@ -20,7 +20,7 @@ namespace OperationAPI.Application.Features.AircraftRegisteration.Quieres.GetAll
 
         public async Task<List<AircraftRegistrationDomain>> Handle(GetAllAircraftRegisterationRequest request, CancellationToken cancellationToken)
         {
-            var data = await service.GetAsync();
+            var data = await service.GetRegistrationByAll();
             if (data == null)
             {
                 // throw new Exception

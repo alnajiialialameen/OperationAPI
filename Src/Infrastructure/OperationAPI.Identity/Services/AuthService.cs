@@ -76,7 +76,8 @@ namespace OperationAPI.Identity.Services
                 Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
                 Email = user.Email!,
                 UserName = user.UserName!,
-                ExpiryDate = jwtSecurityToken.ValidTo
+                ExpiryDate = jwtSecurityToken.ValidTo,
+                RequiresPasswordChange = user.RequiresPasswordChange,
             };
 
             // get Airline agent info depending on returned userId

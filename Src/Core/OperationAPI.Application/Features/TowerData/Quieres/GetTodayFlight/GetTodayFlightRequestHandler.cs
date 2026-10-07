@@ -64,34 +64,40 @@ namespace OperationAPI.Application.Features.TowerData.Quieres.GetTodayFlight
         //}
 
         public async Task<List<FlightDomain>> Handle(
-    GetTodayFlightRequest request,
-    CancellationToken cancellationToken)
+        GetTodayFlightRequest request,
+        CancellationToken cancellationToken)
         {
-            // Get flights from local database
-            var data = await service.GetTodayFilghtLocal(request.AirLineId);
+            // 1. جلب البيانات المحلية (سواء كانت لشركة واحدة أو لكل الشركات)
+            var localData = await service.GetTodayFilghtLocal(request.AirLineId);
 
-            // Get all flights from FIDS API
+            // 2. جلب الرحلات من FIDS API
             var flightsList = await FidsAPIService.GetToDayFlights();
-            flightsList = flightsList.Where(x => x.AirlineId == request.AirLineId).ToList();
+
+            // فلترة حسب الشركة فقط إذا تم تمرير AirLineId
+            if (request.AirLineId.HasValue)
+            {
+                flightsList = flightsList.Where(x => x.AirlineId == request.AirLineId.Value).ToList();
+            }
+
             if (!flightsList.Any())
             {
                 return new List<FlightDomain>();
             }
 
-            // IDs of flights already consumed locally
-            var clientIds = data
-                .Select(x => x.FidsFlightId)
-                .ToHashSet();
+            // 3. تحويل البيانات المحلية إلى Dictionary للبحث المباشر O(1)
+            var localFlightMap = localData
+                .Where(x => x.FidsFlightId.HasValue)
+                .ToDictionary(x => x.FidsFlightId.Value, x => x);
 
-            // Compare all FIDS flights with local flights
+            // 4. مطابقة رحلات FIDS مع الرحلات المحلية
             flightsList = flightsList.Select(e =>
             {
-                var localFlight = data.FirstOrDefault(x => x.FidsFlightId == e.Id);
+                var isFound = localFlightMap.TryGetValue(e.Id, out var localFlight);
 
-                e.IsConsumed = localFlight != null;
+                e.IsConsumed = isFound;
                 e.IsOpen = e.FlightStatusId >= 1;
 
-                if (localFlight != null)
+                if (isFound && localFlight != null)
                 {
                     e.TowerDataId = localFlight.Id;
                 }
@@ -99,10 +105,6 @@ namespace OperationAPI.Application.Features.TowerData.Quieres.GetTodayFlight
                 return e;
             }).ToList();
 
-
-
-
-            // Return ALL FIDS flights
             return flightsList;
         }
 

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using OperationAPI.Application.Contracts.Services;
 using OperationAPI.Domain;
@@ -16,12 +17,13 @@ namespace OperationAPI.Presistence.Repositories
 
         public async Task<List<TowerDataDomain>> GetTodayFilghtLocal(int? AirlineId)
         {
-            var today = DateTime.Today;
+            var today = DateOnly.FromDateTime(DateTime.Today);
+
             var data = await this.Context.TowerData
                 .Include(x => x.AirLine)
                 .Include(x => x.AircraftReg)
-              //.Where(x => x.Date == DateOnly.FromDateTime(Date))
-            .Where(x => x.Date == DateOnly.FromDateTime(today) && x.AirLineId == AirlineId).ToListAsync();
+                .Where(x => x.Date == today && (!AirlineId.HasValue || x.AirLineId == AirlineId.Value))
+                .ToListAsync();
 
             return Mapper.Map<List<TowerDataDomain>>(data);
         }
@@ -72,29 +74,58 @@ namespace OperationAPI.Presistence.Repositories
         //    return Mapper.Map<List<TowerDataDomain>>(data);
         //}
 
-        public async Task<List<TowerDataViewDomain>> GetFlightByStatus(
-      int? airlineId,
-      List<int> statuses)
-        {
-            var today = DateOnly.FromDateTime(DateTime.Today);
+        //   public async Task<List<TowerDataViewDomain>> GetFlightByStatus(
+        //int? airlineId,
+        //List<int> statuses)
+        //   {
+        //       var today = DateOnly.FromDateTime(DateTime.Today);
 
-            var data = await Context.TowerData
-                .Include(x => x.AirLine)
-                .Include(x => x.AircraftReg)
-                .Include(x => x.AirportIdFromNavigation)
-                    .ThenInclude(x => x.Country)
-                .Include(x => x.AirportIdToNavigation)
-                    .ThenInclude(x => x.Country)
-                .Include(x => x.FlightNoNavigation)
+        //       var data = await Context.TowerData
+        //           .AsNoTracking()
+
+        //           .Include(x => x.AirLine)
+        //           .Include(x => x.AircraftReg)
+
+        //           .Include(x => x.AirportIdFromNavigation)
+        //               .ThenInclude(x => x.Country)
+
+        //           .Include(x => x.AirportIdToNavigation)
+        //               .ThenInclude(x => x.Country)
+
+        //           .Include(x => x.FlightNoNavigation)
+
+        //           .Where(x =>
+        //               x.Date == today &&
+        //               x.AirLineId == airlineId &&
+        //               x.Status.HasValue &&
+        //               EF.Constant(statuses).Contains(x.Status.Value))
+
+        //           .ToListAsync();
+
+        //       return Mapper.Map<List<TowerDataViewDomain>>(data);
+        //   }
+
+
+
+
+        public async Task<List<TowerDataViewDomain>> GetFlightByStatus(
+    int? airlineId,
+    List<int> statuses)
+        {
+            //var today = DateOnly.FromDateTime(DateTime.Today);
+
+            return await Context.TowerData
+                .AsNoTracking()
                 .Where(x =>
-                    x.Date == today &&
+                    //x.Date == today &&
                     x.AirLineId == airlineId &&
                     x.Status.HasValue &&
                     EF.Constant(statuses).Contains(x.Status.Value))
+                .ProjectTo<TowerDataViewDomain>(
+                    Mapper.ConfigurationProvider)
                 .ToListAsync();
-
-            return Mapper.Map<List<TowerDataViewDomain>>(data);
         }
+
 
         public async Task<OfficerDataDomain?> GetOfficerDataById(int? towerDataId)
         {

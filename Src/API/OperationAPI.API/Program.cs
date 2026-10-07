@@ -41,6 +41,7 @@ builder.Services.AddScoped<ICompanyInfoSercice, CompanyInfoRepository>();
 
 builder.Services.AddScoped<ITowerDataService, TowerDataRepository>();
 builder.Services.AddScoped<IOfficerDataService, OfficerDataRepository>();
+builder.Services.AddScoped<IFuelCompanyService, FuelCompanyRepository>();
 
 
 
@@ -56,7 +57,13 @@ builder.Services.AddAutoMapper(typeof(ApplicationMappingConfig).Assembly);
 
 
 
-builder.Services.AddControllers();
+//builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new EmptyStringToNullDateTimeConverter());
+    });
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

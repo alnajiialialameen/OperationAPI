@@ -59,37 +59,25 @@ namespace OperationAPI.Domain
     public class TowerDataViewDomain : BaseDomain
     {
         public int? AirLineId { get; set; }
-
         public string? FlightNoName { get; set; }
-
         public int? AircraftRegId { get; set; }
         public int? FidsFlightId { get; set; }
         public int? AirportIdTo { get; set; }
         public int? AirportIdFrom { get; set; }
-
         public DateTime? LandingDate { get; set; }
-
         public DateTime? TakeOffDate { get; set; }
         public int? Status { get; set; }
         public DateOnly? Date { get; set; }
-
         public TimeOnly? Ata { get; set; }
         public TimeOnly? Atd { get; set; }
         public int? CompanyInfoId { get; set; }
 
-        public AirLineDomain AirLine { get; set; }
-
-        public AircraftRegistrationDomain? AircraftReg { get; set; }
-
-        public AirPortDomain AirportIdFromNavigation { get; set; }
-
-        public  AirPortDomain AirportIdToNavigation { get; set; }
-
-     
-
-
-
-
+        // الحقول الإضافية المفلطحة (Flattened)
+        public string? Registration { get; set; }
+        public string? AirportFromNameAr { get; set; }
+        public string? AirportFromNameEn { get; set; }
+        public string? AirportToNameAr { get; set; }
+        public string? AirportToNameEn { get; set; }
     }
 
 

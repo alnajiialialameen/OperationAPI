@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using OperationAPI.Application.Contracts.Identity;
 using OperationAPI.Application.Models.IdentityModel;
@@ -21,7 +22,25 @@ namespace OperationAPI.Identity
 
             // services.AddDbContext<MyIdentityDBContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>(options=> options.SignIn.RequireConfirmedAccount = true)
+            services.AddIdentity<ApplicationUser, IdentityRole>(
+                options=>
+                {
+                    options.SignIn.RequireConfirmedAccount = false;
+
+                    options.Password.RequiredLength = 1;
+                    options.Password.RequireDigit = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+
+                    // User Policy
+                    options.User.RequireUniqueEmail = false;
+
+                    // Lockout Policy
+                    options.Lockout.MaxFailedAccessAttempts = 5;
+                    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+                    options.Lockout.AllowedForNewUsers = false;
+                })
                 .AddEntityFrameworkStores<MyIdentityDBContext>()
                 .AddDefaultTokenProviders();
 

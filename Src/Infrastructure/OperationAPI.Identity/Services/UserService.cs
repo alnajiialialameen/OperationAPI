@@ -65,6 +65,14 @@ namespace OperationAPI.Identity.Services
 
             var result = await _userManager.ResetPasswordAsync(user, token, password);
 
+
+            if (!result.Succeeded)
+                return false;
+
+            user.RequiresPasswordChange = false;
+
+            var updateResult = await _userManager.UpdateAsync(user);
+
             return result.Succeeded;
         }
     }

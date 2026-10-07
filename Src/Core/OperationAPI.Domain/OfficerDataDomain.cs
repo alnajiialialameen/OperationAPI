@@ -4,7 +4,7 @@ namespace OperationAPI.Domain
 {
     public class OfficerDataDomain : BaseDomain
     {
-        public int? TowerDataId { get; set; }
+        public int TowerDataId { get; set; }
 
         public int? HandlingAgentId { get; set; }
 

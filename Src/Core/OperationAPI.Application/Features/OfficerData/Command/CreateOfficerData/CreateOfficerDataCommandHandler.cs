@@ -22,14 +22,12 @@ namespace OperationAPI.Application.Features.OfficerData.Command.CreateOfficerDat
 
         public async Task<OfficerDataDomain> Handle(CreateOfficerDataCommand command, CancellationToken cancellationToken)
         {
-
             // validation
             //var validator = new CreateFlightValidator(service);
             //var validationResult = await validator.ValidateAsync(command);
 
             //if (validationResult.Errors.Any())
             //{
-
             //    throw new BadRequestException(nameof(AircraftRegistrationDomain), validationResult.Errors);
             //}
 
@@ -39,6 +37,7 @@ namespace OperationAPI.Application.Features.OfficerData.Command.CreateOfficerDat
             {
                 var towerDataDomain = new TowerDataDomain
                 {
+                    Id = 0, // تصفير الـ Id لتجنب إرسال أي قيمة إلى عمود الترقيم التلقائي
                     AirLineId = command.model?.TowerData?.AirLineId,
                     FlightNoName = command.model?.TowerData?.FlightNoName,
                     AircraftRegId = command.model?.TowerData?.AircraftRegId,
@@ -61,50 +60,39 @@ namespace OperationAPI.Application.Features.OfficerData.Command.CreateOfficerDat
                     //Pob = command.model.Pob,
                     //Qbd = command.model.Qbd,
 
-                    TripTypeId = command.model?.TowerData?.TripTypeId,
-
-
-                    CompanyInfoId = command.model?.TowerData?.CompanyInfoId,
-
-                   // Note = command.model?.TowerData?.Note,
-
+                    TripTypeId = 1,
+                    CompanyInfoId = 10,
+                    FidsFlightId = command.model?.TowerData?.FidsFlightId,  
+                    // Note = command.model?.TowerData?.Note,
                     //CreatedBy = command.model.CreatedBy,
                     //CreationDate = command.model.CreationDate,
-
                     //UpdatedBy = command.model.UpdatedBy,
                     //UpdatingDate = command.model.UpdatingDate
                 };
 
+                // 1. حفظ TowerData أولاً
                 var towerResult = await towerDataService.CreateAsync(towerDataDomain);
-                command.model.TowerDataId = towerResult.Id;
-                var officeResult = await officerDataService.CreateAsync(command.model);
 
+                // 2. إعداد كائن OfficerData وربطه بالمفتاح الأجنبي
+                command.model.Id = 0; // تصفير الـ Id لإنشاء سجل جديد
+                command.model.TowerDataId = towerResult.Id;
+                //command.model.FuelCompanyId = 1;
+                command.model.AireLineAgentId = 1;
+                command.model.CompanyInfoId = 10;
+
+                // 3. منع EF Core من إعادة إدخال سجل TowerData مرة أخرى
+                command.model.TowerData = null;
+
+                var officeResult = await officerDataService.CreateAsync(command.model);
 
                 await unitOfWork.CommitAsync();
                 return officeResult;
-
             }
             catch (Exception ex)
             {
                 await unitOfWork.RollbackAsync();
                 throw;
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         }
 
 

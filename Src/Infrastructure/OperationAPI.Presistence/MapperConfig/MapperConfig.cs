@@ -13,6 +13,7 @@ namespace OperationAPI.Presistence.MapperConfig
             CreateMap<WorkOn, WorkOnDomain>().ReverseMap();
             CreateMap<CompanyInfo, CompanyInfoDomain>().ReverseMap();
             CreateMap<AirLineAgentDomain, AirLineAgent>().ReverseMap();
+            CreateMap<FuelCompanyDomain, FuelCompany>().ReverseMap();
 
             CreateMap<CountryDomain, Country>().ReverseMap();
            
@@ -72,7 +73,17 @@ namespace OperationAPI.Presistence.MapperConfig
             CreateMap<OfficerDatum, OfficerDataDomain>().ReverseMap();
 
             #region flight  Mapper
-            CreateMap<TowerDatum, TowerDataViewDomain>();
+
+
+            CreateMap<TowerDatum, TowerDataViewDomain>()
+    .ForMember(dest => dest.Registration, opt => opt.MapFrom(src => src.AircraftReg.Registration))
+    .ForMember(dest => dest.AirportFromNameAr, opt => opt.MapFrom(src => src.AirportIdFromNavigation.NameAr))
+    .ForMember(dest => dest.AirportFromNameEn, opt => opt.MapFrom(src => src.AirportIdFromNavigation.NameEn))
+    .ForMember(dest => dest.AirportToNameAr, opt => opt.MapFrom(src => src.AirportIdToNavigation.NameAr))
+    .ForMember(dest => dest.AirportToNameEn, opt => opt.MapFrom(src => src.AirportIdToNavigation.NameEn));
+
+
+
             CreateMap<TowerDatum, TowerDataStartUpDomain>();
             
             #endregion
