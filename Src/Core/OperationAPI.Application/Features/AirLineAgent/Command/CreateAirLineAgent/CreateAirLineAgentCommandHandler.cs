@@ -44,14 +44,13 @@ namespace OperationAPI.Application.Features.AirLineAgent.Command.CreateAirLineAg
                     Password = "Asd@12345",
                     PhoneNumber = command.model.Phone1,
                     UserName = command.model.NameAn,
-                    UserRoles = new List<string> { "Agent" }
+                    Roles = new List<string> { "Agent" }
                 };
                
                 var registerationResult = await authService.Register(registeration);
                 command.model.UserId = registerationResult.UserId;
                 var createAirlineAgentResult = await service.CreateAsync(command.model);
                
-
                 await unitOfWork.CommitAsync();
                 return createAirlineAgentResult;
 

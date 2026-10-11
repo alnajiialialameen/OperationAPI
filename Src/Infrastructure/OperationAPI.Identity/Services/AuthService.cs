@@ -146,7 +146,7 @@ namespace OperationAPI.Identity.Services
 
             if (result.Succeeded)
             {
-                foreach (var role in request.UserRoles!.ToList())
+                foreach (var role in request.Roles!.ToList())
                 {
                     await _userManager.AddToRoleAsync(user, role);
                 }

@@ -23,6 +23,6 @@ namespace OperationAPI.Application.Models.IdentityModel
         [Phone]
         public string? PhoneNumber { get; set; }
 
-        public List<string>? UserRoles { get; set; }
+        public List<string>? Roles { get; set; }
     }
 }
