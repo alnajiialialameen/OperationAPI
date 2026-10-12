@@ -22,5 +22,17 @@ namespace OperationAPI.Presistence.Repositories
         {
             return await Context.FuelCompanies.AnyAsync(x => x.Id != model.Id && x.NameEn == model.NameEn);
         }
+
+
+        public async Task<List<ListDomain>> getList()
+        {
+            return await Context.FuelCompanies
+                .Select(x => new ListDomain
+                {
+                    Id = x.Id,
+                    Name = x.NameEn    /// ما محتا ج mapper 
+                })
+                .ToListAsync();
+        }
     }
 }

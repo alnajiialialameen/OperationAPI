@@ -14,6 +14,8 @@ namespace OperationAPI.Application.Contracts.Services
 
         //Task<List<TowerDataDomain>> GetTowerDataByDate(DateOnly Date ,int? AirlineId , int? Status);
         Task<List<TowerDataDomain>> GetTodayFilghtLocal(int? AirlineId);
+        Task<List<TowerDataViewDomain>> GetFilghtLocalNotComplate(int? AirlineId);
+
 
         //Task<TowerDataDomain> UpdateAsyncDeparture(TowerDataDomain model);
         Task<TowerDataDomain> CreateDepartureInitial(DepartureInitialDomain model);
@@ -24,6 +26,13 @@ namespace OperationAPI.Application.Contracts.Services
         Task<OfficerDataDomain> GetOfficerDataById(int? TowerDataId);
 
         Task<bool> setStatus(int? TowerDataId, int? status);
+
+        Task<int> GetStatusOfficer(TowerDataDomain model);
+
+        Task<bool> ConfirmedOfficer(int? TowerDataId);
+
+
+        
 
     }
 }

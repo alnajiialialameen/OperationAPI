@@ -1,11 +1,13 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OperationAPI.Application.Features.FuelCompany.Quieres.GetFuelCompanyForList;
 using OperationAPI.Application.Features.HandlingAgentsCompany.Command.CreateHandlingAgentsCompany;
 using OperationAPI.Application.Features.HandlingAgentsCompany.Command.DeleteHandlingAgentsCompany;
 using OperationAPI.Application.Features.HandlingAgentsCompany.Command.UpdateHandlingAgentsCompany;
 using OperationAPI.Application.Features.HandlingAgentsCompany.Quieres.GetAllHandlingAgentsCompany;
 using OperationAPI.Application.Features.HandlingAgentsCompany.Quieres.GetByIdHandlingAgentsCompany;
+using OperationAPI.Application.Features.HandlingAgentsCompany.Quieres.GetHandlingAgentForList;
 using OperationAPI.Domain;
 
 namespace OperationAPI.API.Controllers
@@ -58,6 +60,15 @@ namespace OperationAPI.API.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var data = await mediator.Send(new DeleteHandlingAgentsCompanyCommand(id));
+
+            return Ok(data);
+        }
+
+
+        [HttpGet("Handlinglist")]
+        public async Task<IActionResult> Handlinglist()
+        {
+            var data = await mediator.Send(new GetHandlingAgentForListRequest());
 
             return Ok(data);
         }

@@ -12,13 +12,13 @@ namespace OperationAPI.Presistence.Repositories
         {
         }
 
-        public async Task<List<AircraftRegistrationDomain>> GetRegistrationByAirlineId(int? AirlineId)
+        public async Task<List<AircraftRegistrationView>> GetRegistrationByAirlineId(int? AirlineId)
         {
             var data = await Context.AircraftRegistrations
                 .Where(x => x.AireLineId == AirlineId)
                 .ToListAsync();
 
-            var result = Mapper.Map<List<AircraftRegistrationDomain>>(data);
+            var result = Mapper.Map<List<AircraftRegistrationView>>(data);
             return result;
         }
 

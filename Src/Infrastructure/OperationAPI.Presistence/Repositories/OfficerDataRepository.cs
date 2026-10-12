@@ -12,6 +12,8 @@ namespace OperationAPI.Presistence.Repositories
         {
         }
 
+       
+
         public async Task<bool> IsUniqueObject(DepartureServiceDomain model)
         {    
             if (model.Id == 0 || model.Id == null)

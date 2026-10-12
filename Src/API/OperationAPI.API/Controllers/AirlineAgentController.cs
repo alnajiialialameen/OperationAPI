@@ -1,11 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using OperationAPI.Application.Features.AircraftRegisteration.Quieres.GetAircraftRegisterationById;
-using OperationAPI.Application.Features.AircraftRegisteration.Quieres.GetAllAircraftRegisteration;
-using OperationAPI.Application.Features.AircraftType.Command.UpdateAircraftType;
 using OperationAPI.Application.Features.AirLineAgent.Command.CreateAirLineAgent;
 using OperationAPI.Application.Features.AirLineAgent.Command.UpdateAirLineAgent;
+using OperationAPI.Application.Features.AirLineAgent.Quieres.GetAirLineAgentByAirlineId;
 using OperationAPI.Application.Features.AirLineAgent.Quieres.GetAirLineAgentById;
+using OperationAPI.Application.Features.AirLineAgent.Quieres.GetAirLineAgentList;
 using OperationAPI.Application.Features.AirLineAgent.Quieres.GetAllAirLineAgent;
 using OperationAPI.Domain;
 
@@ -60,6 +59,23 @@ namespace OperationAPI.API.Controllers
         public async Task<IActionResult> Put([FromBody] AirLineAgentDomain model)
         {
             var data = await mediator.Send(new UpdateAirLineAgentCommand(model));
+
+            return Ok(data);
+        }
+
+
+        [HttpGet("AirLineAgent/{airlineId}")]
+        public async Task<IActionResult> GetByAirlineId(int airlineId)
+        {
+            var data = await mediator.Send(new GetAirLineAgentByAirlineIdRequest(airlineId));
+
+            return Ok(data);
+        }
+
+        [HttpGet("AirLineAgentList")]
+        public async Task<IActionResult> AirLineAgentList()
+        {
+            var data = await mediator.Send(new GetAirLineAgentListRequest());
 
             return Ok(data);
         }

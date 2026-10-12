@@ -11,5 +11,6 @@ namespace OperationAPI.Application.Contracts.Services
     {
         Task<bool> IsUniqueObject(FuelCompanyDomain model);
 
+        public Task<List<ListDomain>> getList();
     }
 }

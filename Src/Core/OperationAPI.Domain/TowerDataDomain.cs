@@ -78,6 +78,10 @@ namespace OperationAPI.Domain
         public string? AirportFromNameEn { get; set; }
         public string? AirportToNameAr { get; set; }
         public string? AirportToNameEn { get; set; }
+        public string? AirLineNameEn { get; set; }
+        //public string? AirLineNameAr { get; set; }
+
+
     }
 
 
@@ -139,7 +143,11 @@ namespace OperationAPI.Domain
 
 
 
-
+    public class ListDomain : BaseDomain
+    {
+        public string? Name { get; set; }
+   
+    }
 
 
 }

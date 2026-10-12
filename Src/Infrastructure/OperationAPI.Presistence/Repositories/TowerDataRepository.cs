@@ -157,5 +157,91 @@ namespace OperationAPI.Presistence.Repositories
             towerData.Status = status;
             return true;
         }
+
+
+        public Task<int> GetStatusOfficer(TowerDataDomain model)
+        {
+            if (model == null)
+            {
+                return Task.FromResult(0);
+            }
+
+            // 1. تم الهبوط والإقلاع معاً (يجب فحصها أولاً قبل الشروط الفردية)
+            if (model.Ata != null && model.LandingDate != null && model.Atd != null && model.TakeOffDate != null)
+            {
+                return Task.FromResult(5); // أو الرقم المخصص لحالة الهبوط والإقلاع معاً في نظامك
+            }
+
+            // 2. تم الإقلاع فقط
+            if (model.Atd != null && model.TakeOffDate != null)
+            {
+                return Task.FromResult(3);
+            }
+
+            // 3. تم الهبوط فقط
+            if (model.Ata != null && model.LandingDate != null)
+            {
+                return Task.FromResult(4);
+            }
+
+            // 4. وجود بيانات التسجيل فقط مع فراغ بقية البيانات
+            if (model.AircraftRegId > 0 && model.Ata == null && model.LandingDate == null && model.Atd == null && model.TakeOffDate == null)
+            {
+                return Task.FromResult(1);
+            }
+
+            // قيمة افتراضية في حال لم ينطبق أي شرط لتفادي خطأ عدم إرجاع قيمة
+            return Task.FromResult(0);
+        }
+
+        //public async Task<List<DepartureInitialDomain>> GetFilghtLocalNotComplate(int? AirlineId)
+        //{
+        //    var data = await Context.TowerData
+        //        .Include(x => x.AirLine)
+        //        .Include(x => x.AircraftReg)
+        //        .Where(x =>
+        //            x.FidsFlightId != null &&
+        //            x.FidsFlightId != 5 &&
+        //            (!AirlineId.HasValue ||
+        //             x.AirLineId == AirlineId.Value))
+        //        .ToListAsync();
+
+        //    return Mapper.Map<List<DepartureInitialDomain>>(data);
+        //}
+
+
+        public async Task<List<TowerDataViewDomain>> GetFilghtLocalNotComplate(
+            int? AirlineId)
+        {
+            var data = await Context.TowerData
+                .AsNoTracking()
+                .Include(x => x.AirLine)
+                .Include(x => x.AircraftReg)
+                .Include(x => x.AirportIdFromNavigation)
+                .Include(x => x.AirportIdToNavigation)
+                .Where(x =>
+                    x.FidsFlightId != null &&
+                    x.Status != 5 &&
+                    (!AirlineId.HasValue ||
+                     x.AirLineId == AirlineId.Value))
+                .ToListAsync();
+
+            return Mapper.Map<List<TowerDataViewDomain>>(data);
+        }
+
+        public async Task<bool> ConfirmedOfficer(int? towerDataId)
+        {
+            var officerData = await Context.OfficerData
+                .FirstOrDefaultAsync(x => x.TowerDataId == towerDataId);
+
+            if (officerData == null)
+                return false;
+
+            officerData.IsOfficerConfirmed = true;
+
+            await Context.SaveChangesAsync();
+
+            return true;
+        }
     }
 }

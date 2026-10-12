@@ -11,6 +11,8 @@ namespace OperationAPI.Application.Contracts.Services
     {
         Task<bool> IsUniqueObject(DepartureServiceDomain model);
         Task<bool> IsUniqueObject(LandingServiceDomain model);
-        
+
+
+
     }
 }

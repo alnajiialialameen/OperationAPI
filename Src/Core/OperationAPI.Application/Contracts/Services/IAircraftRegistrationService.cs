@@ -12,7 +12,7 @@ namespace OperationAPI.Application.Contracts.Services
         Task<bool> IsUniqueObject(AircraftRegistrationDomain model);
 
 
-        Task<List<AircraftRegistrationDomain>> GetRegistrationByAirlineId(int? AirlineId);
+        Task<List<AircraftRegistrationView>> GetRegistrationByAirlineId(int? AirlineId);
         Task<List<AircraftRegistrationDomain>> GetRegistrationByAll();
 
     }

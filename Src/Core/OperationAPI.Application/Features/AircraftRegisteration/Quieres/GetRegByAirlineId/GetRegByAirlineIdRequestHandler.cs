@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace OperationAPI.Application.Features.AircraftRegisteration.Quieres.GetRegByAirlineId
 {
    
-    class GetRegByAirlineIdRequestHandler : IRequestHandler<GetRegByAirlineIdRequest, List<AircraftRegistrationDomain>>
+    class GetRegByAirlineIdRequestHandler : IRequestHandler<GetRegByAirlineIdRequest, List<AircraftRegistrationView>>
     {
         private readonly IAircraftRegistrationService service;
 
@@ -20,7 +20,7 @@ namespace OperationAPI.Application.Features.AircraftRegisteration.Quieres.GetReg
             this.service = service;
         }
 
-        public async Task<List<AircraftRegistrationDomain>> Handle(GetRegByAirlineIdRequest request, CancellationToken cancellationToken)
+        public async Task<List<AircraftRegistrationView>> Handle(GetRegByAirlineIdRequest request, CancellationToken cancellationToken)
         {
             var data = await service.GetRegistrationByAirlineId(request.AirlineId);
 
@@ -28,7 +28,7 @@ namespace OperationAPI.Application.Features.AircraftRegisteration.Quieres.GetReg
             if (data == null)
             {
                 // throw new Exception
-                data = new List<AircraftRegistrationDomain>();  //لو مافي يجب لي بيانات فاضية
+                data = new List<AircraftRegistrationView>();  //لو مافي يجب لي بيانات فاضية
             }
 
             return data;

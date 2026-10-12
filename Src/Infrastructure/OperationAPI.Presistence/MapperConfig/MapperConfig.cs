@@ -30,7 +30,10 @@ namespace OperationAPI.Presistence.MapperConfig
 
             CreateMap<AircraftRegistrationDomain, AircraftRegistration>()
                 .ForMember(dest => dest.AircraftType, opt => opt.Ignore());
-                //.ForMember(dest => dest.AireLine, opt => opt.Ignore());
+            //.ForMember(dest => dest.AireLine, opt => opt.Ignore());
+
+            CreateMap<AircraftRegistration, AircraftRegistrationView>();
+
 
             // Get
             CreateMap<AircraftRegistration, AircraftRegistrationDomain>()
@@ -75,17 +78,22 @@ namespace OperationAPI.Presistence.MapperConfig
             #region flight  Mapper
 
 
+          
             CreateMap<TowerDatum, TowerDataViewDomain>()
     .ForMember(dest => dest.Registration, opt => opt.MapFrom(src => src.AircraftReg.Registration))
     .ForMember(dest => dest.AirportFromNameAr, opt => opt.MapFrom(src => src.AirportIdFromNavigation.NameAr))
     .ForMember(dest => dest.AirportFromNameEn, opt => opt.MapFrom(src => src.AirportIdFromNavigation.NameEn))
     .ForMember(dest => dest.AirportToNameAr, opt => opt.MapFrom(src => src.AirportIdToNavigation.NameAr))
-    .ForMember(dest => dest.AirportToNameEn, opt => opt.MapFrom(src => src.AirportIdToNavigation.NameEn));
+    .ForMember(dest => dest.AirportToNameEn, opt => opt.MapFrom(src => src.AirportIdToNavigation.NameEn))
+    
+    .ForMember(dest => dest.AirLineNameEn, opt => opt.MapFrom(src => src.AirLine.Name));
 
 
 
             CreateMap<TowerDatum, TowerDataStartUpDomain>();
-            
+           
+
+
             #endregion
 
         }

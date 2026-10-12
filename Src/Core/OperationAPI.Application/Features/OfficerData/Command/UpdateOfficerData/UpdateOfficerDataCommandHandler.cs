@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using OperationAPI.Application.Contracts.Services;
 using OperationAPI.Domain;
+using System.Windows.Input;
 
 namespace OperationAPI.Application.Features.OfficerData.Command.UpdateOfficerData
 {
@@ -46,6 +47,9 @@ namespace OperationAPI.Application.Features.OfficerData.Command.UpdateOfficerDat
                 towerData.TripTypeId = command.model?.TowerData?.TripTypeId;
 
                 towerData.CompanyInfoId = command.model?.TowerData?.CompanyInfoId;
+                int status = await towerDataService.GetStatusOfficer(towerData);
+                towerData.Status = status;
+                towerData.TripTypeId = 1; // default value for TripTypeId   
                 await towerDataService.UpdateAsync(towerData);
 
                 // ==============================
@@ -57,6 +61,8 @@ namespace OperationAPI.Application.Features.OfficerData.Command.UpdateOfficerDat
                 // ==============================
                 // 5. Update OfficerData
                 // ==============================
+                if (command.model.AireLineAgentId <= 0) { command.model.AireLineAgentId = null; }
+                if (command.model.CompanyInfoId <= 0) { command.model.CompanyInfoId = null; }
 
                 var officerResult = await officerDataService.UpdateAsync(command.model);
 

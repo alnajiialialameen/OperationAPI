@@ -71,6 +71,9 @@ namespace OperationAPI.Application.Features.OfficerData.Command.CreateOfficerDat
                 };
 
                 // 1. حفظ TowerData أولاً
+                int status = await towerDataService.GetStatusOfficer(towerDataDomain);
+                towerDataDomain.Status = status;
+
                 var towerResult = await towerDataService.CreateAsync(towerDataDomain);
 
                 // 2. إعداد كائن OfficerData وربطه بالمفتاح الأجنبي

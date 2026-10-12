@@ -12,6 +12,7 @@ namespace OperationAPI.Presistence.Repositories
         {
         }
 
+       
         public async Task<AirLineAgentDomain> getByUserId(string userId)
         {
             var data = await this.Context.AirLineAgents
@@ -30,5 +31,28 @@ namespace OperationAPI.Presistence.Repositories
         {
             return await Context.AirLineAgents.AnyAsync(x => x.Id != model.Id && x.NameAn == model.NameAn);
         }
+
+
+        public async Task<List<AirLineAgentDomain>> GetAirLineAgentByAirlineId(int? AirlineId)
+        {
+            var data = await Context.AirLineAgents
+                .Where(x => x.AirLineId == AirlineId)
+                .ToListAsync();
+
+            var result = Mapper.Map<List<AirLineAgentDomain>>(data);
+            return result;
+        }
+
+        public async Task<List<ListDomain>> getList()
+        {
+            return await Context.AirLineAgents
+                .Select(x => new ListDomain
+                {
+                    Id = x.Id,
+                    Name = x.NameAn    /// ما محتا ج mapper 
+                })
+                .ToListAsync();
+        }
+
     }
 }

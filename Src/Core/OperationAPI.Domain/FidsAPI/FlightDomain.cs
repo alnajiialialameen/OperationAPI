@@ -27,6 +27,8 @@ namespace OperationAPI.Domain.FidsAPI
         //public string? ImagePath { get; set; } 
         public bool? IsConsumed { get; set; }
         public int? FlightStatusId { get; set; }
+        public int? Status { get; set; }
+
         public bool? IsOpen { get; set; }
         public int? TowerDataId { get; set; }
 

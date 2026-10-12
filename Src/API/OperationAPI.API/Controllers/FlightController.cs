@@ -1,12 +1,14 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using OperationAPI.Application.Features.TowerData.Command.ConfirmedOfficer;
 using OperationAPI.Application.Features.TowerData.Command.CreateDepartureInitial;
 using OperationAPI.Application.Features.TowerData.Command.CreateDepartureService;
 using OperationAPI.Application.Features.TowerData.Command.CreateLandingService;
 using OperationAPI.Application.Features.TowerData.Command.CreateTowerData;
 using OperationAPI.Application.Features.TowerData.Command.DeleteTowerData;
 using OperationAPI.Application.Features.TowerData.Command.UpdateTakeOffFlight;
+using OperationAPI.Application.Features.TowerData.Quieres.GetFilghtLocalNotComplate;
 using OperationAPI.Application.Features.TowerData.Quieres.GetFlightByStatus;
 using OperationAPI.Application.Features.TowerData.Quieres.GetOfficerDataById;
 using OperationAPI.Application.Features.TowerData.Quieres.GetTodayFlight;
@@ -116,6 +118,25 @@ namespace OperationAPI.API.Controllers
 
             return Ok(data);
         }
+
+
+
+        [HttpGet("FilghtLocalNotComplate")]
+        public async Task<IActionResult> FilghtLocalNotComplate([FromQuery] int? airLineId = null)
+        {
+            var data = await mediator.Send(new GetFilghtLocalNotComplateRequest(airLineId));
+            return Ok(data);
+        }
+
+
+        [HttpPost("ConfirmedOfficer/{TowerdataId}")]
+        public async Task<IActionResult> ConfirmedOfficer(int TowerdataId)
+        {
+            var data = await mediator.Send(new ConfirmedOfficerCommand(TowerdataId));
+
+            return Ok(data);
+        }
+
 
 
         [HttpDelete("{id}")]

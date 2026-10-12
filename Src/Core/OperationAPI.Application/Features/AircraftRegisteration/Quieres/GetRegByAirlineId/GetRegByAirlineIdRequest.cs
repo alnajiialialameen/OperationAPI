@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OperationAPI.Application.Features.AircraftRegisteration.Quieres.GetRegByAirlineId
 {
-    public record GetRegByAirlineIdRequest(int? AirlineId) : IRequest<List<AircraftRegistrationDomain>>
+    public record GetRegByAirlineIdRequest(int? AirlineId) : IRequest<List<AircraftRegistrationView>>
     {
 
     }

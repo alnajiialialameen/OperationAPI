@@ -1,11 +1,12 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using OperationAPI.Application.Features.AirLineAgent.Quieres.GetAirLineAgentByAirlineId;
 using OperationAPI.Application.Features.FuelCompany.Command.CreateFuelCompany;
 using OperationAPI.Application.Features.FuelCompany.Command.DeleteFuelCompany;
 using OperationAPI.Application.Features.FuelCompany.Command.UpdateFuelCompany;
 using OperationAPI.Application.Features.FuelCompany.Quieres.GetAllFuelCompany;
 using OperationAPI.Application.Features.FuelCompany.Quieres.GetFuelCompanyById;
-
+using OperationAPI.Application.Features.FuelCompany.Quieres.GetFuelCompanyForList;
 using OperationAPI.Domain;
 
 namespace OperationAPI.API.Controllers
@@ -61,5 +62,18 @@ namespace OperationAPI.API.Controllers
 
             return Ok(data);
         }
+
+
+        [HttpGet("Fuellist")]
+        public async Task<IActionResult> Fuellist()
+        {
+            var data = await mediator.Send(new GetFuelCompanyForListRequest());
+
+            return Ok(data);
+        }
+
+
+
+
     }
 }

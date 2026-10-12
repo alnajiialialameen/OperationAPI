@@ -9,5 +9,7 @@ namespace OperationAPI.Application.Contracts.Services
 {
     public interface IHandlingAgentsCompanyService : IGenericService<HandlingAgentsCompanyDomain>
     {
+       public Task<List<ListDomain>> getList();
+
     }
 }
