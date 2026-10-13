@@ -39,45 +39,50 @@ namespace OperationAPI.API.MiddelWares
         private async Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
             HttpStatusCode statusCode = HttpStatusCode.InternalServerError;
-            CustomProblemDetails problem = new();
-
+            //CustomProblemDetails problem = new();
+            string? problem = null;
             switch (ex)
             {
                 case BadRequestException _badReequestException:
                     statusCode = HttpStatusCode.BadRequest;
-                    problem = new CustomProblemDetails
-                    {
-                        Title = _badReequestException.Message,
-                        Status = (int)statusCode,
-                        Detail = _badReequestException.InnerException?.Message,
-                        Type = nameof(BadRequestException),
-                        Errors = _badReequestException.ValidationErrors
-                    };
+                    problem = _badReequestException.Message;
+                    //problem = new CustomProblemDetails
+                    //{
+                    //    Title = _badReequestException.Message,
+                    //    Status = (int)statusCode,
+                    //    //Detail = _badReequestException.InnerException?.Message,
+                    //    Detail = null,
+                    //    Type = nameof(BadRequestException),
+                    //    Errors = _badReequestException.ValidationErrors
+                    //};
                     break;
                 case NotFoundException _notFoundException:
                     statusCode = HttpStatusCode.NotFound;
-                    problem = new CustomProblemDetails
-                    {
-                        Title = _notFoundException.Message,
-                        Status = (int)statusCode,
-                        Detail = _notFoundException.InnerException?.Message,
-                        Type = nameof(NotFoundException)
-                    };
+                    problem = _notFoundException.Message;
+                    //problem = new CustomProblemDetails
+                    //{
+                    //    Title = _notFoundException.Message,
+                    //    Status = (int)statusCode,
+                    //    Detail = _notFoundException.InnerException?.Message,
+                    //    Type = nameof(NotFoundException)
+                    //};
                     break;
                 default:
-                    problem = new CustomProblemDetails
-                    {
-                        Title = ex.Message,
-                        Status = (int)statusCode,
-                        Detail = ex.StackTrace,
-                        Type = nameof(HttpStatusCode.InternalServerError)
-                    };
+                    problem = "Invalid Request";
+                    //problem = new CustomProblemDetails
+                    //{
+                    //    Title = "An unexpected error occurred.",
+                    //    Status = (int)statusCode,
+                    //    //Detail = ex.StackTrace,
+                    //    Detail = null,
+                    //    Type = nameof(HttpStatusCode.InternalServerError)
+                    //};
                     break;
             }
 
             context.Response.StatusCode = (int)statusCode;
 
-            var ResponseException = new ResponseDTO<CustomProblemDetails>()
+            var ResponseException = new ResponseDTO<string>()
             {
                 status = "Error",
                 message = ex.Message,

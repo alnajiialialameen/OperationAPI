@@ -55,13 +55,13 @@ namespace OperationAPI.Identity.Services
             };
         }
 
-        public async Task<bool> ResetPasswordAsync(string userId, string password)
+        public async Task<bool> ResetPasswordAsync(string userId, string password, bool IsResetedByAdmin = false)
         {
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
                 return false;
 
-            var token = await  _userManager.GeneratePasswordResetTokenAsync(user);
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
 
             var result = await _userManager.ResetPasswordAsync(user, token, password);
 
@@ -69,9 +69,11 @@ namespace OperationAPI.Identity.Services
             if (!result.Succeeded)
                 return false;
 
-            user.RequiresPasswordChange = false;
-
-            var updateResult = await _userManager.UpdateAsync(user);
+            if (IsResetedByAdmin) // If the password reset is initiated by an admin, we can set RequiresPasswordChange to false
+            {
+                user.RequiresPasswordChange = false;
+                var updateResult = await _userManager.UpdateAsync(user);
+            }
 
             return result.Succeeded;
         }

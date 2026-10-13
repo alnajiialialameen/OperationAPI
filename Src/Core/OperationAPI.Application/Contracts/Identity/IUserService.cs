@@ -6,6 +6,6 @@ namespace OperationAPI.Application.Contracts.Identity
     {
         Task<List<Employee>> GetAllEmployees();
         Task<Employee> GetEmployee(string UserId);
-        Task<bool> ResetPasswordAsync(string userId, string password);
+        Task<bool> ResetPasswordAsync(string userId, string password, bool IsResetedByAdmin);
     }
 }

@@ -95,9 +95,20 @@ namespace OperationAPI.API.Controllers
         [HttpPost("ResetPassword")]
         public async Task<ActionResult<bool>> ResetPasswordAsync(string userId, string password)
         {
-            var res = await this._userService.ResetPasswordAsync(userId, password);
+            var res = await this._userService.ResetPasswordAsync(userId, password, IsResetedByAdmin: false);
 
             if(res)
+                return Ok(true);
+
+            return BadRequest(false);
+        }
+        
+        [HttpPost("ResetPasswordForAdmin")]
+        public async Task<ActionResult<bool>> ResetPasswordForAdminAsync(string userId, string password)
+        {
+            var res = await this._userService.ResetPasswordAsync(userId, password, IsResetedByAdmin: true);
+
+            if (res)
                 return Ok(true);
 
             return BadRequest(false);

@@ -42,54 +42,61 @@ namespace OperationAPI.Identity.Services
         }
         public async Task<AuthResponse> Loging(AuthRequest request)
         {
-            // check is user email already registered or not
-            ApplicationUser? user = null;
-
-            if (!string.IsNullOrEmpty(request.Email))
+            try
             {
-                user = await _userManager.FindByEmailAsync(request.Email);
+                // check is user email already registered or not
+                ApplicationUser? user = null;
+
+                if (!string.IsNullOrEmpty(request.Email))
+                {
+                    user = await _userManager.FindByEmailAsync(request.Email);
+                }
+                else
+                {
+                    user = await _userManager.FindByNameAsync(request.UserName);
+                }
+
+                if (user == null) // invalid email
+                {
+                    throw new NotFoundException($"user with Email {request.Email} not found", request.Email ?? request.UserName);
+                }
+                // valid email---> check is valid cridential?
+                var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, lockoutOnFailure: false);
+
+                // invalid cridentials
+                if (result.Succeeded == false)
+                {
+                    throw new BadRequestException($"Credentials for '{request.Email} aren't Valid'.");
+                }
+
+                // generate jwt security token
+                JwtSecurityToken jwtSecurityToken = await GenerateToken(user);
+
+                var response = new AuthResponse
+                {
+                    UserId = user.Id,
+                    Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
+                    Email = user.Email!,
+                    UserName = user.UserName!,
+                    ExpiryDate = jwtSecurityToken.ValidTo,
+                    RequiresPasswordChange = user.RequiresPasswordChange,
+                };
+
+                // get Airline agent info depending on returned userId
+                var AirlineAgentList = await GetAirlineAgentInfo(response.UserId);
+
+                if (AirlineAgentList != null)
+                {
+                    response.AirlineAgent = AirlineAgentList;
+                }
+
+                // رجع النتيجة كاملة
+                return response;
             }
-            else
+            catch
             {
-                user = await _userManager.FindByNameAsync(request.UserName);
+                throw new BadRequestException("Invalid userName or password");
             }
-
-            if (user == null) // invalid email
-            {
-                throw new NotFoundException($"user with Email {request.Email} not found", request.Email??request.UserName);
-            }
-            // valid email---> check is valid cridential?
-            var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, lockoutOnFailure: false);
-
-            // invalid cridentials
-            if (result.Succeeded == false)
-            {
-                throw new BadRequestException($"Credentials for '{request.Email} aren't Valid'.");
-            }
-
-            // generate jwt security token
-            JwtSecurityToken jwtSecurityToken = await GenerateToken(user);
-
-            var response = new AuthResponse
-            {
-                UserId = user.Id,
-                Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
-                Email = user.Email!,
-                UserName = user.UserName!,
-                ExpiryDate = jwtSecurityToken.ValidTo,
-                RequiresPasswordChange = user.RequiresPasswordChange,
-            };
-
-            // get Airline agent info depending on returned userId
-            var AirlineAgentList = await GetAirlineAgentInfo(response.UserId);
-
-            if(AirlineAgentList != null)
-            {
-                response.AirlineAgent = AirlineAgentList;
-            }
-
-            // رجع النتيجة كاملة
-            return response;
         }
 
         private async Task<JwtSecurityToken> GenerateToken(ApplicationUser user)
