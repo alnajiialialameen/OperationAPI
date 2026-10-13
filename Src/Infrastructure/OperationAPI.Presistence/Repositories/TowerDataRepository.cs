@@ -229,19 +229,39 @@ namespace OperationAPI.Presistence.Repositories
             return Mapper.Map<List<TowerDataViewDomain>>(data);
         }
 
+        //public async Task<bool> ConfirmedOfficer(int? towerDataId)
+        //{
+        //    var officerData = await Context.OfficerData
+        //        .FirstOrDefaultAsync(x => x.TowerDataId == towerDataId);
+
+        //    if (officerData == null)
+        //        return false;
+
+        //    officerData.IsOfficerConfirmed = true;
+
+        //    await Context.SaveChangesAsync();
+
+        //    return true;
+        //}
+
+
         public async Task<bool> ConfirmedOfficer(int? towerDataId)
         {
-            var officerData = await Context.OfficerData
-                .FirstOrDefaultAsync(x => x.TowerDataId == towerDataId);
+            var towerData = await Context.TowerData
+                .FirstOrDefaultAsync(x => x.Id == towerDataId);
 
-            if (officerData == null)
+            if (towerData == null)
                 return false;
 
-            officerData.IsOfficerConfirmed = true;
+            towerData.IsOfficerConfirmed = true;
 
             await Context.SaveChangesAsync();
 
             return true;
         }
+
+
+
+
     }
 }

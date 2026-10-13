@@ -130,6 +130,8 @@ namespace OperationAPI.Domain
         public int? CompanyInfoId { get; set; }
         public int? FidsFlightId { get; set; }
         public string? FlightNoName { get; set; }
+        public bool? IsOfficerConfirmed { get; set; }
+        
         public string? CreatedBy { get; set; }
 
         public DateTime? CreationDate { get; set; }

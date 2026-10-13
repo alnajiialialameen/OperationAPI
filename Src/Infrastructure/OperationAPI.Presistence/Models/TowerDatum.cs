@@ -47,6 +47,8 @@ public partial class TowerDatum
 
     public string? FlightNoName { get; set; }
 
+    public bool? IsOfficerConfirmed { get; set; }
+
     public string? Note { get; set; }
 
     public string? CreatedBy { get; set; }

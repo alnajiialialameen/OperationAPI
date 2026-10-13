@@ -120,6 +120,7 @@ namespace OperationAPI.Application.Features.TowerData.Quieres.GetTodayFlight
 
                     // جلب Status من localData
                     e.Status = localFlight.Status;
+                    e.IsOfficerConfirmed = localFlight.IsOfficerConfirmed;
                 }
 
                 return e;

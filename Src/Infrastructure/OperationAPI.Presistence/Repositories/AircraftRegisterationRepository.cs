@@ -25,13 +25,13 @@ namespace OperationAPI.Presistence.Repositories
         public async Task<List<AircraftRegistrationDomain>> GetRegistrationByAll()
         {
             var data = await Context.AircraftRegistrations
-                //.Where(x => x.AireLineId == AirlineId)
+                .Include(x => x.AircraftType) // جلب الكيان المرتبط
+                                              //.Where(x => x.AireLineId == AirlineId)
                 .ToListAsync();
 
             var result = Mapper.Map<List<AircraftRegistrationDomain>>(data);
             return result;
         }
-
         public async Task<bool> IsUniqueObject(AircraftRegistrationDomain model)
         {
             return await Context.AircraftRegistrations.AnyAsync(x => x.Id != model.Id && x.Registration == model.Registration);
