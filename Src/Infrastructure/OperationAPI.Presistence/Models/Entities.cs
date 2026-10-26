@@ -75,6 +75,12 @@ public partial class Entities : DbContext
 
     public virtual DbSet<ServiceCarCompany> ServiceCarCompanies { get; set; }
 
+    public virtual DbSet<ServiceRequest> ServiceRequests { get; set; }
+
+    public virtual DbSet<ServiceRequestDetail> ServiceRequestDetails { get; set; }
+
+    public virtual DbSet<ServiceType> ServiceTypes { get; set; }
+
     public virtual DbSet<TowerDatum> TowerData { get; set; }
 
     public virtual DbSet<TransactionLog> TransactionLogs { get; set; }
@@ -842,6 +848,48 @@ public partial class Entities : DbContext
                 .HasMaxLength(128)
                 .UseCollation("SQL_Latin1_General_CP1_CI_AS");
             entity.Property(e => e.UpdatingDate).HasColumnType("datetime");
+        });
+
+        modelBuilder.Entity<ServiceRequest>(entity =>
+        {
+            entity.ToTable("ServiceRequest");
+
+            entity.HasOne(d => d.Airline).WithMany(p => p.ServiceRequests)
+                .HasForeignKey(d => d.AirlineId)
+                .HasConstraintName("FK_ServiceRequest_AirLine");
+
+            entity.HasOne(d => d.TowerData).WithMany(p => p.ServiceRequests)
+                .HasForeignKey(d => d.TowerDataId)
+                .HasConstraintName("FK_ServiceRequest_TowerData");
+        });
+
+        modelBuilder.Entity<ServiceRequestDetail>(entity =>
+        {
+            entity.ToTable("ServiceRequestDetail");
+
+            entity.Property(e => e.AcceptedAt).HasColumnType("datetime");
+            entity.Property(e => e.AcceptedBy).HasMaxLength(450);
+            entity.Property(e => e.ConfirmAgentAt).HasColumnType("datetime");
+            entity.Property(e => e.ConfirmAgentBy).HasMaxLength(450);
+            entity.Property(e => e.RequestedAt).HasColumnType("datetime");
+            entity.Property(e => e.RequestedBy).HasMaxLength(450);
+
+            entity.HasOne(d => d.ServiceRequest).WithMany(p => p.ServiceRequestDetails)
+                .HasForeignKey(d => d.ServiceRequestId)
+                .HasConstraintName("FK_ServiceRequestDetail_ServiceRequest");
+
+            entity.HasOne(d => d.ServiceType).WithMany(p => p.ServiceRequestDetails)
+                .HasForeignKey(d => d.ServiceTypeId)
+                .HasConstraintName("FK_ServiceRequestDetail_ServiceType");
+        });
+
+        modelBuilder.Entity<ServiceType>(entity =>
+        {
+            entity.ToTable("ServiceType");
+
+            entity.Property(e => e.LogoCode).HasMaxLength(50);
+            entity.Property(e => e.NameAr).HasMaxLength(50);
+            entity.Property(e => e.NameEn).HasMaxLength(50);
         });
 
         modelBuilder.Entity<TowerDatum>(entity =>

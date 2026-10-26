@@ -1,8 +1,5 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using OperationAPI.Application.Features.AircraftRegisteration.Command.DeleteAircraftRegisteration;
-using OperationAPI.Application.Features.AircraftRegisteration.Command.UpdateAircraftRegistration;
 using OperationAPI.Application.Features.AircraftSize.Command.CreateAircraftSize;
 using OperationAPI.Application.Features.AircraftSize.Command.DeleteAircraftSize;
 using OperationAPI.Application.Features.AircraftSize.Command.UpdateAircraftSize;

@@ -63,9 +63,7 @@ namespace OperationAPI.Application.Features.TowerData.Quieres.GetTodayFlight
         //    return FlightsList;
         //}
 
-        public async Task<List<FlightDomain>> Handle(
-      GetTodayFlightRequest request,
-      CancellationToken cancellationToken)
+        public async Task<List<FlightDomain>> Handle(GetTodayFlightRequest request, CancellationToken cancellationToken)
         {
             // 1. جلب البيانات المحلية
             var localData = await service.GetTodayFilghtLocal(request.AirLineId);
@@ -104,6 +102,7 @@ namespace OperationAPI.Application.Features.TowerData.Quieres.GetTodayFlight
                 );
 
             // 4. مطابقة FIDS مع البيانات المحلية
+            // 4. مطابقة FIDS مع البيانات المحلية
             flightsList = flightsList.Select(e =>
             {
                 var isFound = localFlightMap.TryGetValue(
@@ -117,14 +116,22 @@ namespace OperationAPI.Application.Features.TowerData.Quieres.GetTodayFlight
                 if (isFound && localFlight != null)
                 {
                     e.TowerDataId = localFlight.Id;
-
-                    // جلب Status من localData
                     e.Status = localFlight.Status;
                     e.IsOfficerConfirmed = localFlight.IsOfficerConfirmed;
+
+                    if (e.IsOpen == true)
+                    {
+                        e.RequestStatus = localFlight.RequestStatus;
+                        e.IsAnyRequestNotAccepted = localFlight.IsAnyRequestNotAccepted;
+                        e.IsAnyRequestNotConfirm = localFlight.IsAnyRequestNotConfirm;
+                    }
                 }
 
                 return e;
             }).ToList();
+
+
+
 
             return flightsList;
         }

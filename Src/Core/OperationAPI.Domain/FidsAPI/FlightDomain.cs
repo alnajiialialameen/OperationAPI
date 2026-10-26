@@ -31,6 +31,14 @@ namespace OperationAPI.Domain.FidsAPI
         public bool? IsOfficerConfirmed { get; set; }
         public bool? IsOpen { get; set; }
         public int? TowerDataId { get; set; }
+        public int? RequestStatus { get; set; }
+
+
+        public bool? IsAnyRequestNotAccepted { get; set; }
+        public bool? IsAnyRequestNotConfirm { get; set; }
+
+
+
 
     }
 }

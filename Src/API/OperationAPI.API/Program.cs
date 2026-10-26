@@ -42,6 +42,8 @@ builder.Services.AddScoped<ICompanyInfoSercice, CompanyInfoRepository>();
 builder.Services.AddScoped<ITowerDataService, TowerDataRepository>();
 builder.Services.AddScoped<IOfficerDataService, OfficerDataRepository>();
 builder.Services.AddScoped<IFuelCompanyService, FuelCompanyRepository>();
+builder.Services.AddScoped<IServiceTypeService, ServiceTypeRepository>();
+builder.Services.AddScoped<IServiceRequestDetailService, ServiceRequestDetailRepository>();
 
 
 

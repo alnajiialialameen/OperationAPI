@@ -73,5 +73,7 @@ public partial class TowerDatum
 
     public virtual ICollection<OfficerDatum> OfficerData { get; set; } = new List<OfficerDatum>();
 
+    public virtual ICollection<ServiceRequest> ServiceRequests { get; set; } = new List<ServiceRequest>();
+
     public virtual TripType? TripType { get; set; }
 }

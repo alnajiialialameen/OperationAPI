@@ -2,6 +2,7 @@
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using OperationAPI.Application.Contracts.Services;
+using OperationAPI.Application.Models;
 using OperationAPI.Domain;
 using OperationAPI.Presistence.Models;
 using System.Linq;
@@ -15,17 +16,28 @@ namespace OperationAPI.Presistence.Repositories
         {
         }
 
+        //public async Task<List<TowerDataDomain>> GetTodayFilghtLocal(int? AirlineId)
+        //{
+        //    var today = DateOnly.FromDateTime(DateTime.Today);
+
+        //    var data = await this.Context.TowerData
+        //        .Include(x => x.AirLine)
+        //        .Include(x => x.AircraftReg)
+        //        .Where(x => x.Date == today && (!AirlineId.HasValue || x.AirLineId == AirlineId.Value))
+        //        .ToListAsync();
+
+        //    return Mapper.Map<List<TowerDataDomain>>(data);
+        //}
+
         public async Task<List<TowerDataDomain>> GetTodayFilghtLocal(int? AirlineId)
         {
             var today = DateOnly.FromDateTime(DateTime.Today);
 
-            var data = await this.Context.TowerData
-                .Include(x => x.AirLine)
-                .Include(x => x.AircraftReg)
+            return await this.Context.TowerData
+                .AsNoTracking()
                 .Where(x => x.Date == today && (!AirlineId.HasValue || x.AirLineId == AirlineId.Value))
+                .ProjectTo<TowerDataDomain>(Mapper.ConfigurationProvider)
                 .ToListAsync();
-
-            return Mapper.Map<List<TowerDataDomain>>(data);
         }
         public async Task<List<TowerDataDomain>> GetTowerDataByDate(DateOnly date, int? airlineId, int? status)
         {
@@ -118,7 +130,7 @@ namespace OperationAPI.Presistence.Repositories
                 .AsNoTracking()
                 .Where(x =>
                     //x.Date == today &&
-                    x.AirLineId == airlineId &&
+                    x.AirLineId == airlineId && x.FidsFlightId > 0 &&
                     x.Status.HasValue &&
                     EF.Constant(statuses).Contains(x.Status.Value))
                 .ProjectTo<TowerDataViewDomain>(
@@ -260,8 +272,64 @@ namespace OperationAPI.Presistence.Repositories
             return true;
         }
 
+        public async Task<List<TowerDataViewDomain>> GetSearchFilght(FlightSearchRequestModel model)
+        {
+            // 1. الاستعلام الأساسي مع العلاقات وفلترة FidsFlightId
+            var query = Context.TowerData
+                .AsNoTracking()
+                .Include(x => x.AirLine)
+                .Include(x => x.AircraftReg)
+                .Include(x => x.AirportIdFromNavigation)
+                .Include(x => x.AirportIdToNavigation)
+                .Where(x => x.FidsFlightId != null && x.Status==5);
 
+            // 2. فلترة شركة الطيران
+            if (model.AirlineId.HasValue)
+            {
+                query = query.Where(x => x.AirLineId == model.AirlineId.Value);
+            }
 
+            // 3. فلترة رقم الرحلة (FlightNoName)
+            if (!string.IsNullOrWhiteSpace(model.FlightNo))
+            {
+                query = query.Where(x => x.FlightNoName == model.FlightNo.Trim());
+            }
 
+            // 4. فلترة تاريخ البداية
+            if (model.DateFrom.HasValue)
+            {
+                query = query.Where(x => x.Date >= model.DateFrom.Value);
+            }
+
+            // 5. فلترة تاريخ النهاية
+            if (model.DateTo.HasValue)
+            {
+                query = query.Where(x => x.Date <= model.DateTo.Value);
+            }
+
+            // 6. جلب البيانات المطابقة فقط وتحويلها إلى Domain Model
+            var data = await query.ToListAsync();
+
+            return Mapper.Map<List<TowerDataViewDomain>>(data);
+        }
+
+        public async Task<bool> IsServiceRequestNotAccepted(int? towerDataId)
+        {
+            if (towerDataId == null)
+                return false;
+
+            // يفحص مباشرة إذا كان هناك تفاصيل طلب مرتبطة بـ TowerDataId ولم يتم قبولها بعد
+            return await Context.ServiceRequestDetails
+                .AnyAsync(x => x.ServiceRequest.TowerDataId == towerDataId && x.AcceptedBy == null);
+        }
+
+        public async Task<bool> IsServiceRequestAccepted(int? towerDataId)
+        {
+            if (towerDataId == null)
+                return false;
+
+            return await Context.ServiceRequestDetails
+                .AnyAsync(x => x.ServiceRequest.TowerDataId == towerDataId && x.AcceptedBy != null);
+        }
     }
 }

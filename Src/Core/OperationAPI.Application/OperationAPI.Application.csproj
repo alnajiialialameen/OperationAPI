@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Contracts\Services\a2ndtp0c.riw~" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="FluentValidation" Version="12.1.1" />
@@ -17,6 +21,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OperationAPI.Domain\OperationAPI.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\ServiceType\Command\" />
   </ItemGroup>
 
 </Project>

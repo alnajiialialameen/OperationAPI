@@ -80,7 +80,7 @@ public partial class OfficerDatum
     public int? PaxInter { get; set; }
 
     public bool? IsClaimCalculated { get; set; }
-    //public bool? IsOfficerConfirmed { get; set; }
+
     public virtual AirLineAgent? AireLineAgent { get; set; }
 
     public virtual FuelCompany? FuelCompany { get; set; }

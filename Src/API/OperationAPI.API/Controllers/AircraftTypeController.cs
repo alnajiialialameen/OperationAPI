@@ -1,16 +1,11 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using OperationAPI.Application.Features.AircraftSize.Command.CreateAircraftSize;
-using OperationAPI.Application.Features.AircraftSize.Quieres.GetAllAircraftSize;
-using OperationAPI.Application.Features.AircraftSize.Quieres.GetByIdAircraftSize;
 using OperationAPI.Application.Features.AircraftType.Command.CreateAircraftType;
 using OperationAPI.Application.Features.AircraftType.Command.DeleteAircraftType;
 using OperationAPI.Application.Features.AircraftType.Command.UpdateAircraftType;
 using OperationAPI.Application.Features.AircraftType.Quieres.GetAllAircraftType;
 using OperationAPI.Application.Features.AircraftType.Quieres.GetByIdAircraftType;
-using OperationAPI.Application.Features.WorkOn.Command.DeleteWorkOn;
-using OperationAPI.Application.Features.WorkOn.Command.UpdateWorkOn;
+
 using OperationAPI.Domain;
 
 namespace OperationAPI.API.Controllers

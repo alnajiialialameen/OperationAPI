@@ -81,7 +81,12 @@ namespace OperationAPI.Domain
         public string? AirLineNameEn { get; set; }
         //public string? AirLineNameAr { get; set; }
 
+        public int? OfficerDataId { get; set; }
+        public int? RequestStatus { get; set; }
+        public bool? IsAnyRequestNotAccepted { get; set; }
+        public bool? IsAnyRequestNotConfirm { get; set; }
 
+        public List<RequestDetailDomain> RequestDetails { get; set; } = new();
     }
 
 
@@ -140,7 +145,9 @@ namespace OperationAPI.Domain
 
         public DateTime? UpdatingDate { get; set; }
 
-      
+        public bool IsAnyRequestNotAccepted { get; set; }
+        public bool IsAnyRequestNotConfirm { get; set; }
+        public int RequestStatus { get; set; }
     }
 
 

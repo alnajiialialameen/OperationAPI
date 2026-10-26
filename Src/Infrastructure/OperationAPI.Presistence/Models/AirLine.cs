@@ -43,5 +43,7 @@ public partial class AirLine
 
     public virtual ICollection<FinalInvoiceNumber> FinalInvoiceNumbers { get; set; } = new List<FinalInvoiceNumber>();
 
+    public virtual ICollection<ServiceRequest> ServiceRequests { get; set; } = new List<ServiceRequest>();
+
     public virtual ICollection<TowerDatum> TowerData { get; set; } = new List<TowerDatum>();
 }

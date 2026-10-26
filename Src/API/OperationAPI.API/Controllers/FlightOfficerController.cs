@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OperationAPI.Application.Features.OfficerData.Command.CreateOfficerData;
 using OperationAPI.Application.Features.OfficerData.Command.UpdateOfficerData;
+using OperationAPI.Application.Features.TowerData.Quieres.GetSearchFilght;
+using OperationAPI.Application.Models;
 using OperationAPI.Domain;
 
 namespace OperationAPI.API.Controllers
@@ -44,7 +46,13 @@ namespace OperationAPI.API.Controllers
             return Ok(data);
         }
 
+        [HttpPost("GetSearchFilght")]
+        public async Task<IActionResult> GetLandingRevenue([FromBody] FlightSearchRequestModel model)
+        {
+            var data = await mediator.Send(new GetSearchFilghtRequest(model));
 
+            return Ok(data);
+        }
 
 
 

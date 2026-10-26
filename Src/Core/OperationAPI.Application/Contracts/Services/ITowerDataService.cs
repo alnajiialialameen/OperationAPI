@@ -1,4 +1,5 @@
-﻿using OperationAPI.Domain;
+﻿using OperationAPI.Application.Models;
+using OperationAPI.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,8 +32,12 @@ namespace OperationAPI.Application.Contracts.Services
 
         Task<bool> ConfirmedOfficer(int? TowerDataId);
 
+        Task<List<TowerDataViewDomain>> GetSearchFilght(FlightSearchRequestModel model);
 
-        
+        Task<bool> IsServiceRequestNotAccepted(int? TowerDataId);
+
+        Task<bool> IsServiceRequestAccepted(int? TowerDataId);
+
 
     }
 }
